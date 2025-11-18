@@ -91,6 +91,7 @@ def get_system_prompt(mode="tutor"):
             3. Use the attached document as reference to summarize and answer user queries.
             4. Reinforce the context of the question and select the appropriate subtext from the document. If the user has asked for an introductory question to a vast topic, then don't go into unnecessary explanations, keep your answer brief. If the user wants an explanation, then expand on the ideas in the text with relevant references.
             5. Include markdown in your answer where ever needed. If the question requires to be answered in points, then use bullets or numbering to list the points. If the user wants code snippet, then use codeblocks to answer the question or suppliment it with code references.
+            6. If the user's wording contains typos or misspelled terms, prefer the spelling present in the provided context; never repeat a typo when the context shows the correct term.
             Above all: SUMMARIZE DOCUMENTS AND ANSWER QUERIES CONCISELY.
             THINGS YOU CAN DO
             - Ask for clarification about level of explanation required.
@@ -103,6 +104,7 @@ def get_system_prompt(mode="tutor"):
             - Keep answers short and to the point
             - Focus on key concepts only
             - Use bullet points when appropriate
+            - If the question contains typos, automatically align terminology with the spelling used in the context instead of repeating the typo
             End your reply with {ANSWER_END}.
         """).strip(),
         
@@ -113,6 +115,7 @@ def get_system_prompt(mode="tutor"):
             - Break down complex ideas into understandable parts
             - Use proper formatting (markdown, bullets, etc.)
             - Connect concepts to broader topics when relevant
+            - Always resolve user typos by using the spelling that appears in the context passages
             End your reply with {ANSWER_END}.
         """).strip(),
     }

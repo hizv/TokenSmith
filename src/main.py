@@ -11,6 +11,8 @@ from src.instrumentation.logging import init_logger, get_logger, RunLogger
 from src.ranking.ranker import EnsembleRanker
 from src.preprocessing.chunking import DocumentChunker
 from src.retriever import apply_seg_filter, BM25Retriever, FAISSRetriever, load_artifacts
+from src.hallucination_detector import create_detector
+from src.rag import self_rag_correct_answer
 from src.query_enhancement import generate_hypothetical_document
 
 
@@ -147,6 +149,7 @@ def get_answer(
     ranker = artifacts["ranker"]
     
     logger.log_query_start(question)
+    # Corrective RAG removed — no special rejection behavior
     
     # Step 1: Get chunks (golden, retrieved, or none)
     chunks_info = None
@@ -166,7 +169,7 @@ def get_answer(
         if cfg.use_hyde:
             model_path = args.model_path or cfg.model_path
             hypothetical_doc = generate_hypothetical_document(
-                question, model_path, max_tokens=cfg.hyde_max_tokens
+                question, str(model_path), max_tokens=cfg.hyde_max_tokens
             )
             retrieval_query = hypothetical_doc
             hyde_query = hypothetical_doc
@@ -184,7 +187,13 @@ def get_answer(
         topk_idxs = apply_seg_filter(cfg, chunks, ordered)
         logger.log_chunks_used(topk_idxs, chunks, sources)
         
-        ranked_chunks = [chunks[i] for i in topk_idxs]
+        selected_chunk_idxs = topk_idxs
+        retrieval_candidate_idxs = topk_idxs
+        ranked_chunks = [chunks[i] for i in selected_chunk_idxs]
+
+        # No Corrective RAG — proceed with retrieved ranked results
+        selected_chunk_idxs = topk_idxs
+        retrieval_candidate_idxs = topk_idxs
         
         # Capture chunk info if in test mode
         if is_test_mode:
@@ -199,7 +208,8 @@ def get_answer(
             bm25_ranks = {idx: rank + 1 for rank, idx in enumerate(bm25_ranked)}
             
             chunks_info = []
-            for rank, idx in enumerate(topk_idxs, 1):
+            log_candidate_idxs = selected_chunk_idxs if selected_chunk_idxs else retrieval_candidate_idxs
+            for rank, idx in enumerate(log_candidate_idxs, 1):
                 chunks_info.append({
                     "rank": rank,
                     "chunk_id": idx,
@@ -214,16 +224,45 @@ def get_answer(
         # Disabled till we fix the core pipeline
         # ranked_chunks = rerank(question, ranked_chunks, mode=cfg.rerank_mode, top_n=cfg.top_k)
     
+    # No Corrective RAG — when no chunks are found, we let the generator run as-is.
+
     # Step 4: Generation
     model_path = args.model_path or cfg.model_path
     system_prompt = args.system_prompt_mode or cfg.system_prompt_mode
     ans = answer(
         question, 
         ranked_chunks, 
-        model_path, 
+        str(model_path), 
         max_tokens=cfg.max_gen_tokens, 
         system_prompt_mode=system_prompt
     )
+    
+    # Step 5: Hallucination Detection (if enabled)
+    if cfg.hallucination_enabled and ranked_chunks:
+        detector = create_detector(
+            model_path=cfg.hallucination_model_path,
+            threshold=cfg.hallucination_threshold
+        )
+        context_texts = ranked_chunks  # chunks are already strings
+        hallucination_result = detector.detect_hallucinations(question, ans, context_texts)
+        
+        if hallucination_result['is_hallucinated']:
+            # Add warning to the answer
+            warning = f"\n\n<!!!> WARNING: This answer may contain hallucinations. {hallucination_result['unsupported_fraction']:.1%} of the content appears unsupported by the provided context."
+            ans += warning
+            # Apply Self-RAG corrections if enabled
+            if cfg.self_rag_enabled:
+                fixed = self_rag_correct_answer(
+                    question=question,
+                    original_answer=ans,
+                    hallucinated_spans=hallucination_result.get('hallucinated_spans', []),
+                    chunks=chunks,
+                    retrievers=retrievers,
+                    pool_size=cfg.self_rag_pool_size,
+                    model_path=str(cfg.model_path),
+                    max_tokens=cfg.self_rag_max_fix_tokens,
+                )
+                ans = fixed
     
     if is_test_mode:
         return ans, chunks_info, hyde_query
