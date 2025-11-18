@@ -209,9 +209,7 @@ def get_tokensmith_answer(question, config, golden_chunks=None):
         hallucination_enabled=config.get("hallucination_detection", {}).get("enabled", True),
         hallucination_model_path=config.get("hallucination_detection", {}).get("model_path", "KRLabsOrg/lettucedect-base-modernbert-en-v1"),
         hallucination_threshold=config.get("hallucination_detection", {}).get("threshold", 0.1),
-        corrective_rag_enabled=config.get("corrective_rag", {}).get("enabled", False),
-        corrective_rag_threshold=config.get("corrective_rag", {}).get("threshold", 0.25),
-        corrective_rag_max_retries=config.get("corrective_rag", {}).get("max_retries", 2),
+        # Corrective RAG removed — no options to set here
         use_indexed_chunks=config.get("use_indexed_chunks", False),
         self_rag_enabled=config.get("self_rag", {}).get("enabled", True),
         self_rag_pool_size=config.get("self_rag", {}).get("pool_size", 50),

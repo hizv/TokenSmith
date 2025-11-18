@@ -16,14 +16,6 @@ hallucination_detection:
   enabled: true
   model_path: "KRLabsOrg/lettucedect-base-modernbert-en-v1"
   threshold: 0.1
-use_indexed_chunks: false
-
-# Corrective RAG configuration
-corrective_rag:
-  enabled: true
-  relevance_threshold: 0.25
-  max_retries: 2
-
 # Self-RAG configuration (tries to repair hallucinated spans locally)
 self_rag:
   enabled: true

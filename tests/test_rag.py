@@ -1,31 +1,21 @@
-from src.rag import grade_documents_local, self_rag_correct_answer
-from src.ranking.ranker import EnsembleRanker
+from src.rag import self_rag_correct_answer
 
 
-def test_grade_documents_local_filters_candidates():
-    ranker = EnsembleRanker("linear", {"faiss": 0.6, "bm25": 0.4}, rrf_k=60)
-    candidate_indices = [0, 1, 2]
-    fake_scores_faiss = {0: 0.2, 1: 0.9, 2: 0.05}
-    fake_scores_bm25 = {0: 0.25, 1: 0.75, 2: 0.01}
-    raw_scores = {"faiss": fake_scores_faiss, "bm25": fake_scores_bm25}
-    chunks = [
-        "Transaction processing details",
-        "Agents rely on working memory to store interim beliefs",
-        "Random unrelated paragraph",
-    ]
-    question = "What is agent memory?"
+class _FakeRetriever:
+    def __init__(self, scores):
+        self.name = "fake"
+        self._scores = scores
+        self.last_query = None
 
-    filtered, combined = grade_documents_local(
-        candidate_indices=candidate_indices,
-        raw_scores=raw_scores,
-        ranker=ranker,
-        threshold=0.5,
-        question=question,
-        chunks=chunks,
-    )
+    def get_scores(self, query, pool_size, chunks):
+        self.last_query = query
+        return self._scores
 
-    assert filtered == [1]
-    assert combined[1] > combined[0]
+
+def test_placeholder_no_corrective_rag():
+    # Since corrective RAG was removed, ensure that this repository still
+    # contains the self-RAG helper and that the import works.
+    assert callable(self_rag_correct_answer)
 
 
 def test_self_rag_annotations_when_no_support():
@@ -45,3 +35,27 @@ def test_self_rag_annotations_when_no_support():
         max_tokens=64,
     )
     assert "[UNSUPPORTED" in corrected
+
+
+def test_self_rag_filters_irrelevant_support():
+    chunks = [
+        "Detailed ACID explanation.",
+        "Tangential note about power outages and hardware.",
+    ]
+    retriever = _FakeRetriever({0: 0.0, 1: 0.0})  # Flat scores → should be filtered out
+    question = "What are the ACID properties of transactions?"
+    spans = [{"start": 0, "end": 15, "text": "ACID transactions"}]
+
+    corrected = self_rag_correct_answer(
+        question=question,
+        original_answer="ACID stands for...",
+        hallucinated_spans=spans,
+        chunks=chunks,
+        retrievers=[retriever],
+        pool_size=10,
+        model_path="dummy.gguf",
+        max_tokens=64,
+    )
+
+    assert "[UNSUPPORTED" in corrected
+    assert retriever.last_query is not None and "ACID properties" in retriever.last_query

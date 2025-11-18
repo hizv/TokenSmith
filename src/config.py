@@ -35,10 +35,6 @@ class QueryPlanConfig:
     hallucination_enabled: bool
     hallucination_model_path: str
     hallucination_threshold: float
-    # Corrective RAG
-    corrective_rag_enabled: bool
-    corrective_rag_threshold: float
-    corrective_rag_max_retries: int
     
     # testing
     system_prompt_mode: str
@@ -97,10 +93,7 @@ class QueryPlanConfig:
             hallucination_enabled = pick("hallucination_detection", {}).get("enabled", False),
             hallucination_model_path = pick("hallucination_detection", {}).get("model_path", "KRLabsOrg/lettucedect-base-modernbert-en-v1"),
             hallucination_threshold = pick("hallucination_detection", {}).get("threshold", 0.1),
-            # Corrective RAG
-            corrective_rag_enabled = pick("corrective_rag", {}).get("enabled", False),
-            corrective_rag_threshold = pick("corrective_rag", {}).get("relevance_threshold", 0.2),
-            corrective_rag_max_retries = pick("corrective_rag", {}).get("max_retries", 1),
+            # Corrective RAG has been removed. Any corrective_rag config is ignored.
             
             # Testing
             system_prompt_mode = pick("system_prompt_mode", "baseline"),
@@ -166,9 +159,6 @@ class QueryPlanConfig:
             "use_indexed_chunks": self.use_indexed_chunks,
             "use_hyde": self.use_hyde,
             "hyde_max_tokens": self.hyde_max_tokens,
-            "corrective_rag_enabled": self.corrective_rag_enabled,
-            "corrective_rag_threshold": self.corrective_rag_threshold,
-            "corrective_rag_max_retries": self.corrective_rag_max_retries,
             "self_rag_enabled": self.self_rag_enabled,
             "self_rag_pool_size": self.self_rag_pool_size,
             "self_rag_max_fix_tokens": self.self_rag_max_fix_tokens,

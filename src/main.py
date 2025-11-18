@@ -12,7 +12,7 @@ from src.ranking.ranker import EnsembleRanker
 from src.preprocessing.chunking import DocumentChunker
 from src.retriever import apply_seg_filter, BM25Retriever, FAISSRetriever, load_artifacts
 from src.hallucination_detector import create_detector
-from src.rag import grade_documents_local, self_rag_correct_answer
+from src.rag import self_rag_correct_answer
 from src.query_enhancement import generate_hypothetical_document
 
 
@@ -149,7 +149,7 @@ def get_answer(
     ranker = artifacts["ranker"]
     
     logger.log_query_start(question)
-    crag_rejected_all = False
+    # Corrective RAG removed — no special rejection behavior
     
     # Step 1: Get chunks (golden, retrieved, or none)
     chunks_info = None
@@ -191,51 +191,9 @@ def get_answer(
         retrieval_candidate_idxs = topk_idxs
         ranked_chunks = [chunks[i] for i in selected_chunk_idxs]
 
-        # === Corrective RAG: Grade retrieved documents and optionally retry retrieval ===
-        if cfg.corrective_rag_enabled:
-            filtered_idxs, _ = grade_documents_local(
-                candidate_indices=selected_chunk_idxs,
-                raw_scores=raw_scores,
-                ranker=ranker,
-                threshold=cfg.corrective_rag_threshold,
-                question=retrieval_query,
-                chunks=chunks,
-            )
-            selected_chunk_idxs = filtered_idxs
-            if selected_chunk_idxs:
-                ranked_chunks = [chunks[i] for i in selected_chunk_idxs]
-            else:
-                retries = 0
-                retrieval_query_retry = retrieval_query
-                widened_pool = pool_n
-                while not selected_chunk_idxs and retries < cfg.corrective_rag_max_retries:
-                    retries += 1
-                    if cfg.use_hyde and not hyde_query:
-                        hyde_query = generate_hypothetical_document(
-                            question, str(args.model_path or cfg.model_path), max_tokens=cfg.hyde_max_tokens
-                        )
-                        retrieval_query_retry = hyde_query
-                    widened_pool = min(len(chunks), max(cfg.pool_size, widened_pool * 2))
-                    raw_scores = {r.name: r.get_scores(retrieval_query_retry, widened_pool, chunks) for r in retrievers}
-                    ordered = ranker.rank(raw_scores=raw_scores)
-                    retrieval_candidate_idxs = apply_seg_filter(cfg, chunks, ordered)
-                    filtered_idxs, _ = grade_documents_local(
-                        candidate_indices=retrieval_candidate_idxs,
-                        raw_scores=raw_scores,
-                        ranker=ranker,
-                        threshold=cfg.corrective_rag_threshold,
-                        question=retrieval_query_retry,
-                        chunks=chunks,
-                    )
-                    selected_chunk_idxs = filtered_idxs
-                if selected_chunk_idxs:
-                    ranked_chunks = [chunks[i] for i in selected_chunk_idxs]
-                else:
-                    crag_rejected_all = True
-                    ranked_chunks = []
-        else:
-            selected_chunk_idxs = topk_idxs
-            retrieval_candidate_idxs = topk_idxs
+        # No Corrective RAG — proceed with retrieved ranked results
+        selected_chunk_idxs = topk_idxs
+        retrieval_candidate_idxs = topk_idxs
         
         # Capture chunk info if in test mode
         if is_test_mode:
@@ -266,12 +224,7 @@ def get_answer(
         # Disabled till we fix the core pipeline
         # ranked_chunks = rerank(question, ranked_chunks, mode=cfg.rerank_mode, top_n=cfg.top_k)
     
-    # If Corrective RAG found no trustworthy context, abstain early
-    if cfg.corrective_rag_enabled and crag_rejected_all:
-        return (
-            "I couldn't find any passages in the indexed textbook that support that question. "
-            "Please try rephrasing or asking about material covered in the text."
-        )
+    # No Corrective RAG — when no chunks are found, we let the generator run as-is.
 
     # Step 4: Generation
     model_path = args.model_path or cfg.model_path
