@@ -12,6 +12,7 @@ from src.ranking.ranker import EnsembleRanker
 from src.preprocessing.chunking import DocumentChunker
 from src.retriever import apply_seg_filter, BM25Retriever, FAISSRetriever, load_artifacts
 from src.hallucination_detector import create_detector
+from src.rag import grade_documents_local, self_rag_correct_answer
 from src.query_enhancement import generate_hypothetical_document
 
 
@@ -186,6 +187,40 @@ def get_answer(
         logger.log_chunks_used(topk_idxs, chunks, sources)
         
         ranked_chunks = [chunks[i] for i in topk_idxs]
+
+        # === Corrective RAG: Grade and (optionally) re-retrieve if documents are irrelevant ===
+        if cfg.corrective_rag_enabled:
+            print(f"[CRAG] corrective_rag enabled: threshold={cfg.corrective_rag_threshold} max_retries={cfg.corrective_rag_max_retries}")
+            filtered_chunks, combined_scores = grade_documents_local(
+                question=retrieval_query,
+                chunks=chunks,
+                retrievers=retrievers,
+                ranker=ranker,
+                pool_size=cfg.pool_size,
+                threshold=cfg.corrective_rag_threshold,
+            )
+            # If no chunks pass the relevance threshold, attempt to re-run retrieval using HyDE or widen pool
+            retries = 0
+            while cfg.corrective_rag_enabled and (not filtered_chunks) and retries < cfg.corrective_rag_max_retries:
+                retries += 1
+                # If use_hyde is enabled and we don't already have a hyde query, generate one
+                if cfg.use_hyde and not hyde_query:
+                    hyde_query = generate_hypothetical_document(question, str(args.model_path or cfg.model_path), max_tokens=cfg.hyde_max_tokens)
+                    retrieval_query = hyde_query
+                # Widen pool size to attempt to include more candidates
+                widened_pool = min(len(chunks), cfg.pool_size * (2 ** retries))
+                raw_scores = {r.name: r.get_scores(retrieval_query, widened_pool, chunks) for r in retrievers}
+                filtered_chunks, combined_scores = grade_documents_local(
+                    question=retrieval_query,
+                    chunks=chunks,
+                    retrievers=retrievers,
+                    ranker=ranker,
+                    pool_size=widened_pool,
+                    threshold=cfg.corrective_rag_threshold,
+                )
+            if filtered_chunks:
+                print(f"[CRAG] Using filtered chunks ({len(filtered_chunks)}) for generation")
+                ranked_chunks = filtered_chunks
         
         # Capture chunk info if in test mode
         if is_test_mode:
@@ -221,7 +256,7 @@ def get_answer(
     ans = answer(
         question, 
         ranked_chunks, 
-        model_path, 
+        str(model_path), 
         max_tokens=cfg.max_gen_tokens, 
         system_prompt_mode=system_prompt
     )
@@ -239,6 +274,19 @@ def get_answer(
             # Add warning to the answer
             warning = f"\n\n<!!!> WARNING: This answer may contain hallucinations. {hallucination_result['unsupported_fraction']:.1%} of the content appears unsupported by the provided context."
             ans += warning
+            # Apply Self-RAG corrections if enabled
+            if cfg.self_rag_enabled:
+                fixed = self_rag_correct_answer(
+                    question=question,
+                    original_answer=ans,
+                    hallucinated_spans=hallucination_result.get('hallucinated_spans', []),
+                    chunks=chunks,
+                    retrievers=retrievers,
+                    pool_size=cfg.self_rag_pool_size,
+                    model_path=str(cfg.model_path),
+                    max_tokens=cfg.self_rag_max_fix_tokens,
+                )
+                ans = fixed
     
     if is_test_mode:
         return ans, chunks_info, hyde_query

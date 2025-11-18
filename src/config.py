@@ -35,6 +35,10 @@ class QueryPlanConfig:
     hallucination_enabled: bool
     hallucination_model_path: str
     hallucination_threshold: float
+    # Corrective RAG
+    corrective_rag_enabled: bool
+    corrective_rag_threshold: float
+    corrective_rag_max_retries: int
     
     # testing
     system_prompt_mode: str
@@ -47,6 +51,10 @@ class QueryPlanConfig:
     use_hyde: bool
     hyde_max_tokens: int
     use_indexed_chunks: bool
+    # Self-RAG
+    self_rag_enabled: bool
+    self_rag_pool_size: int
+    self_rag_max_fix_tokens: int
 
     # ---------- chunking strategy + artifact name helpers ----------
     def make_strategy(self) -> ChunkStrategy:
@@ -89,6 +97,10 @@ class QueryPlanConfig:
             hallucination_enabled = pick("hallucination_detection", {}).get("enabled", False),
             hallucination_model_path = pick("hallucination_detection", {}).get("model_path", "KRLabsOrg/lettucedect-base-modernbert-en-v1"),
             hallucination_threshold = pick("hallucination_detection", {}).get("threshold", 0.1),
+            # Corrective RAG
+            corrective_rag_enabled = pick("corrective_rag", {}).get("enabled", False),
+            corrective_rag_threshold = pick("corrective_rag", {}).get("relevance_threshold", 0.2),
+            corrective_rag_max_retries = pick("corrective_rag", {}).get("max_retries", 1),
             
             # Testing
             system_prompt_mode = pick("system_prompt_mode", "baseline"),
@@ -101,6 +113,10 @@ class QueryPlanConfig:
             # Query Enhancement
             use_hyde       = pick("use_hyde", False),
             hyde_max_tokens= pick("hyde_max_tokens", 100),
+            # Self-RAG
+            self_rag_enabled = pick("self_rag", {}).get("enabled", False),
+            self_rag_pool_size = pick("self_rag", {}).get("support_pool_size", 50),
+            self_rag_max_fix_tokens = pick("self_rag", {}).get("max_fix_tokens", 128),
         )
         cfg._validate()
         return cfg
@@ -150,4 +166,10 @@ class QueryPlanConfig:
             "use_indexed_chunks": self.use_indexed_chunks,
             "use_hyde": self.use_hyde,
             "hyde_max_tokens": self.hyde_max_tokens,
+            "corrective_rag_enabled": self.corrective_rag_enabled,
+            "corrective_rag_threshold": self.corrective_rag_threshold,
+            "corrective_rag_max_retries": self.corrective_rag_max_retries,
+            "self_rag_enabled": self.self_rag_enabled,
+            "self_rag_pool_size": self.self_rag_pool_size,
+            "self_rag_max_fix_tokens": self.self_rag_max_fix_tokens,
         }
