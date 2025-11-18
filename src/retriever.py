@@ -11,7 +11,7 @@ import pathlib
 import os
 import pickle
 from abc import ABC, abstractmethod
-from typing import List, Tuple, Optional, Dict
+from typing import List, Tuple, Optional, Dict, Any
 
 import faiss
 import numpy as np
@@ -34,7 +34,7 @@ def _get_embedder(model_name: str) -> SentenceTransformer:
 
 # -------------------------- Read artifacts -------------------------------
 
-def load_artifacts(artifacts_dir: os.PathLike, index_prefix: str) -> Tuple[faiss.Index, List[str], List[str]]:
+def load_artifacts(artifacts_dir: os.PathLike, index_prefix: str) -> Tuple[faiss.Index, Any, List[str], List[str]]:
     """
     Loads:
       - FAISS index: {index_prefix}.faiss

@@ -149,6 +149,7 @@ def get_answer(
     ranker = artifacts["ranker"]
     
     logger.log_query_start(question)
+    crag_rejected_all = False
     
     # Step 1: Get chunks (golden, retrieved, or none)
     chunks_info = None
@@ -168,7 +169,7 @@ def get_answer(
         if cfg.use_hyde:
             model_path = args.model_path or cfg.model_path
             hypothetical_doc = generate_hypothetical_document(
-                question, model_path, max_tokens=cfg.hyde_max_tokens
+                question, str(model_path), max_tokens=cfg.hyde_max_tokens
             )
             retrieval_query = hypothetical_doc
             hyde_query = hypothetical_doc
@@ -186,41 +187,55 @@ def get_answer(
         topk_idxs = apply_seg_filter(cfg, chunks, ordered)
         logger.log_chunks_used(topk_idxs, chunks, sources)
         
-        ranked_chunks = [chunks[i] for i in topk_idxs]
+        selected_chunk_idxs = topk_idxs
+        retrieval_candidate_idxs = topk_idxs
+        ranked_chunks = [chunks[i] for i in selected_chunk_idxs]
 
-        # === Corrective RAG: Grade and (optionally) re-retrieve if documents are irrelevant ===
+        # === Corrective RAG: Grade retrieved documents and optionally retry retrieval ===
         if cfg.corrective_rag_enabled:
-            print(f"[CRAG] corrective_rag enabled: threshold={cfg.corrective_rag_threshold} max_retries={cfg.corrective_rag_max_retries}")
-            filtered_chunks, combined_scores = grade_documents_local(
+            filtered_idxs, _ = grade_documents_local(
+                candidate_indices=selected_chunk_idxs,
+                raw_scores=raw_scores,
+                ranker=ranker,
+                threshold=cfg.corrective_rag_threshold,
                 question=retrieval_query,
                 chunks=chunks,
-                retrievers=retrievers,
-                ranker=ranker,
-                pool_size=cfg.pool_size,
-                threshold=cfg.corrective_rag_threshold,
             )
-            # If no chunks pass the relevance threshold, attempt to re-run retrieval using HyDE or widen pool
-            retries = 0
-            while cfg.corrective_rag_enabled and (not filtered_chunks) and retries < cfg.corrective_rag_max_retries:
-                retries += 1
-                # If use_hyde is enabled and we don't already have a hyde query, generate one
-                if cfg.use_hyde and not hyde_query:
-                    hyde_query = generate_hypothetical_document(question, str(args.model_path or cfg.model_path), max_tokens=cfg.hyde_max_tokens)
-                    retrieval_query = hyde_query
-                # Widen pool size to attempt to include more candidates
-                widened_pool = min(len(chunks), cfg.pool_size * (2 ** retries))
-                raw_scores = {r.name: r.get_scores(retrieval_query, widened_pool, chunks) for r in retrievers}
-                filtered_chunks, combined_scores = grade_documents_local(
-                    question=retrieval_query,
-                    chunks=chunks,
-                    retrievers=retrievers,
-                    ranker=ranker,
-                    pool_size=widened_pool,
-                    threshold=cfg.corrective_rag_threshold,
-                )
-            if filtered_chunks:
-                print(f"[CRAG] Using filtered chunks ({len(filtered_chunks)}) for generation")
-                ranked_chunks = filtered_chunks
+            selected_chunk_idxs = filtered_idxs
+            if selected_chunk_idxs:
+                ranked_chunks = [chunks[i] for i in selected_chunk_idxs]
+            else:
+                retries = 0
+                retrieval_query_retry = retrieval_query
+                widened_pool = pool_n
+                while not selected_chunk_idxs and retries < cfg.corrective_rag_max_retries:
+                    retries += 1
+                    if cfg.use_hyde and not hyde_query:
+                        hyde_query = generate_hypothetical_document(
+                            question, str(args.model_path or cfg.model_path), max_tokens=cfg.hyde_max_tokens
+                        )
+                        retrieval_query_retry = hyde_query
+                    widened_pool = min(len(chunks), max(cfg.pool_size, widened_pool * 2))
+                    raw_scores = {r.name: r.get_scores(retrieval_query_retry, widened_pool, chunks) for r in retrievers}
+                    ordered = ranker.rank(raw_scores=raw_scores)
+                    retrieval_candidate_idxs = apply_seg_filter(cfg, chunks, ordered)
+                    filtered_idxs, _ = grade_documents_local(
+                        candidate_indices=retrieval_candidate_idxs,
+                        raw_scores=raw_scores,
+                        ranker=ranker,
+                        threshold=cfg.corrective_rag_threshold,
+                        question=retrieval_query_retry,
+                        chunks=chunks,
+                    )
+                    selected_chunk_idxs = filtered_idxs
+                if selected_chunk_idxs:
+                    ranked_chunks = [chunks[i] for i in selected_chunk_idxs]
+                else:
+                    crag_rejected_all = True
+                    ranked_chunks = []
+        else:
+            selected_chunk_idxs = topk_idxs
+            retrieval_candidate_idxs = topk_idxs
         
         # Capture chunk info if in test mode
         if is_test_mode:
@@ -235,7 +250,8 @@ def get_answer(
             bm25_ranks = {idx: rank + 1 for rank, idx in enumerate(bm25_ranked)}
             
             chunks_info = []
-            for rank, idx in enumerate(topk_idxs, 1):
+            log_candidate_idxs = selected_chunk_idxs if selected_chunk_idxs else retrieval_candidate_idxs
+            for rank, idx in enumerate(log_candidate_idxs, 1):
                 chunks_info.append({
                     "rank": rank,
                     "chunk_id": idx,
@@ -250,6 +266,13 @@ def get_answer(
         # Disabled till we fix the core pipeline
         # ranked_chunks = rerank(question, ranked_chunks, mode=cfg.rerank_mode, top_n=cfg.top_k)
     
+    # If Corrective RAG found no trustworthy context, abstain early
+    if cfg.corrective_rag_enabled and crag_rejected_all:
+        return (
+            "I couldn't find any passages in the indexed textbook that support that question. "
+            "Please try rephrasing or asking about material covered in the text."
+        )
+
     # Step 4: Generation
     model_path = args.model_path or cfg.model_path
     system_prompt = args.system_prompt_mode or cfg.system_prompt_mode

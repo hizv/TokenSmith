@@ -206,6 +206,16 @@ def get_tokensmith_answer(question, config, golden_chunks=None):
         metrics=config.get("metrics", ["all"]),
         use_hyde=config.get("use_hyde", False),
         hyde_max_tokens=config.get("hyde_max_tokens", 100),
+        hallucination_enabled=config.get("hallucination_detection", {}).get("enabled", True),
+        hallucination_model_path=config.get("hallucination_detection", {}).get("model_path", "KRLabsOrg/lettucedect-base-modernbert-en-v1"),
+        hallucination_threshold=config.get("hallucination_detection", {}).get("threshold", 0.1),
+        corrective_rag_enabled=config.get("corrective_rag", {}).get("enabled", False),
+        corrective_rag_threshold=config.get("corrective_rag", {}).get("threshold", 0.25),
+        corrective_rag_max_retries=config.get("corrective_rag", {}).get("max_retries", 2),
+        use_indexed_chunks=config.get("use_indexed_chunks", False),
+        self_rag_enabled=config.get("self_rag", {}).get("enabled", True),
+        self_rag_pool_size=config.get("self_rag", {}).get("pool_size", 50),
+        self_rag_max_fix_tokens=config.get("self_rag", {}).get("max_fix_tokens", 256),
     )
     
     # Print status
@@ -262,6 +272,11 @@ def get_tokensmith_answer(question, config, golden_chunks=None):
     else:
         generated, chunks_info, hyde_query = result, None, None
     
+    # Remove hallucination warning suffix so scoring only sees the answer body
+    generated, warning = strip_hallucination_warning(generated)
+    if warning:
+        print(f"  ⚠️  Hallucination detector warning: {warning}")
+
     # Clean answer - extract up to end token if present
     generated = clean_answer(generated)
     
@@ -297,6 +312,17 @@ def clean_answer(text):
         return text[:earliest_pos].strip()
     
     return text.strip()
+
+
+def strip_hallucination_warning(text):
+    """Split off hallucination warning suffix appended by the pipeline."""
+    warning_marker = "<!!!> WARNING"
+    idx = text.find(warning_marker)
+    if idx == -1:
+        return text, None
+    answer = text[:idx].rstrip()
+    warning = text[idx:].strip()
+    return answer, warning
 
 
 def print_result(benchmark_id, passed, final_score, threshold, scores, output_mode, retrieved_answer=None):

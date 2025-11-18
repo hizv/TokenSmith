@@ -18,10 +18,30 @@ for generation.
 
 from typing import Dict, List, Tuple
 from collections import defaultdict
+import re
 
 from src.retriever import Retriever
 from src.ranking.ranker import EnsembleRanker
 from src.generator import answer
+
+
+_STOPWORDS = {
+    "the", "is", "at", "which", "on", "for", "a", "an", "and", "or", "in",
+    "to", "of", "by", "with", "that", "this", "it", "as", "are", "was", "what",
+    "who", "when", "where", "how", "why"}
+
+
+def _extract_keywords(text: str) -> List[str]:
+    tokens = re.findall(r"[a-zA-Z0-9]+", text.lower())
+    return [t for t in tokens if t and t not in _STOPWORDS]
+
+
+def _keyword_overlap_score(keywords: List[str], chunk_text: str) -> float:
+    if not keywords:
+        return 1.0
+    content = chunk_text.lower()
+    matches = sum(1 for word in keywords if word in content)
+    return matches / max(1, len(keywords))
 
 
 def _normalize(scores: Dict[int, float]) -> Dict[int, float]:
@@ -49,37 +69,36 @@ def compute_combined_scores(raw_scores: Dict[str, Dict[int, float]], weights: Di
     return dict(combined)
 
 
-def grade_documents_local(question: str, chunks: List[str], retrievers: List[Retriever], ranker: EnsembleRanker, pool_size: int, threshold: float = 0.2) -> Tuple[List[str], Dict[int, float]]:
-    """Grade/relevance-filter a set of candidate chunks using a local ensemble score.
+def grade_documents_local(
+    candidate_indices: List[int],
+    raw_scores: Dict[str, Dict[int, float]],
+    ranker: EnsembleRanker,
+    threshold: float = 0.2,
+    question: str | None = None,
+    chunks: List[str] | None = None,
+) -> Tuple[List[int], Dict[int, float]]:
+    """Given candidate chunk indices and raw retriever scores, grade relevance locally.
 
-    Returns the filtered list of chunk texts and the final combined scores for the
-    evaluated pool.
+    Combines retriever-based similarity with a simple keyword-overlap heuristic so obviously
+    unrelated chunks can be filtered out before generation.
     """
-    # Gather retriever scores
-    raw_scores = {}
-    for r in retrievers:
-        raw_scores[r.name] = r.get_scores(question, pool_size, chunks)
+    if not candidate_indices:
+        return [], {}
 
     combined = compute_combined_scores(raw_scores, ranker.weights)
-    # Debug: show top combined scores
-    if combined:
-        ordered_combined = sorted(combined.items(), key=lambda kv: kv[1], reverse=True)
-        top_preview = ordered_combined[:min(5, len(ordered_combined))]
-        print(f"[CRAG] top combined scores: {top_preview} (threshold={threshold})")
+    adjusted_scores = {}
 
-    # Filter by threshold - if document >= threshold it is considered relevant
-    filtered_idxs = [idx for idx, s in combined.items() if s >= threshold]
-    # If no docs passed threshold, fallback to selecting top K
-    if not filtered_idxs:
-        # Choose top-1 by combined score (safe fallback)
-        ordered = sorted(combined.keys(), key=lambda i: combined[i], reverse=True)
-        filtered_idxs = ordered[:1]
+    keywords = _extract_keywords(question or "") if question else []
+    for idx in candidate_indices:
+        base_score = combined.get(idx, 0.0)
+        if keywords and chunks:
+            overlap = _keyword_overlap_score(keywords, chunks[idx])
+            adjusted_scores[idx] = base_score * overlap
+        else:
+            adjusted_scores[idx] = base_score
 
-    # Sort the filtered indexes by combined score descending
-    filtered_idxs_sorted = sorted(filtered_idxs, key=lambda i: combined.get(i, 0.0), reverse=True)
-    filtered_chunks = [chunks[i] for i in filtered_idxs_sorted]
-    print(f"[CRAG] filtered chunk count: {len(filtered_chunks)}")
-    return filtered_chunks, combined
+    filtered_idxs = [idx for idx in candidate_indices if adjusted_scores.get(idx, 0.0) >= threshold]
+    return filtered_idxs, adjusted_scores
 
 
 def _get_chunks_for_span(span_text: str, chunks: List[str], retrievers: List[Retriever], pool_size: int, top_k: int = 3):
@@ -99,8 +118,6 @@ def _get_chunks_for_span(span_text: str, chunks: List[str], retrievers: List[Ret
         return []
     ordered = sorted(merged.keys(), key=lambda i: merged[i], reverse=True)
     top_idxs = ordered[:top_k]
-    # Debug
-    print(f"[Self-RAG] For span: {span_text[:80]}... found support chunks indexes: {top_idxs}")
     return [chunks[i] for i in top_idxs]
 
 
@@ -120,7 +137,6 @@ def self_rag_correct_answer(question: str, original_answer: str, hallucinated_sp
     corrected = original_answer
     # Process spans in reverse order by start index to preserve offsets
     spans_sorted = sorted(hallucinated_spans, key=lambda s: s.get("start", 0), reverse=True)
-    print(f"[Self-RAG] Attempting to repair {len(spans_sorted)} hallucinated spans")
     for span in spans_sorted:
         start = span.get("start", None)
         end = span.get("end", None)
@@ -143,13 +159,9 @@ def self_rag_correct_answer(question: str, original_answer: str, hallucinated_sp
             if not new_text or new_text.strip() == "":
                 # If rewrite fails, annotate with unsupported
                 new_text = f"[UNSUPPORTED: {text}]"
-                print(f"[Self-RAG] rewrite failed, annotating span as unsupported: {text[:40]}...")
-            else:
-                print(f"[Self-RAG] rewrite success; replaced span: {text[:40]}... with new text of length {len(new_text)}")
         else:
             # No supporting chunks found - annotate unsupported
             new_text = f"[UNSUPPORTED: {text}]"
-            print(f"[Self-RAG] No support found for span: {text[:40]}...; annotating as unsupported.")
 
         # Replace the substring in the answer. Use the start/end offsets directly.
         corrected = corrected[:start] + new_text + corrected[end:]

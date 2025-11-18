@@ -21,7 +21,7 @@ class MetricRegistry:
         self.register(SemanticSimilarityMetric())
         self.register(KeywordMatchMetric())
         self.register(NLIEntailmentMetric())
-        self.register(AsyncLLMJudgeMetric())
+        # self.register(AsyncLLMJudgeMetric())
 
     def register(self, metric: MetricBase):
         """Register a new metric."""
