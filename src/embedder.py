@@ -26,6 +26,9 @@ class SentenceTransformer:
             logits_all=True
         )
         self._embedding_dimension = None
+        # Small in-memory cache of token -> embedding for the lifetime of this object.
+        # This is intended to reduce duplicate encode() calls for identical short queries.
+        self._emb_cache = {}
         
         _ = self.embedding_dimension
         print(f"Model loaded successfully. Embedding dimension: {self._embedding_dimension}")
@@ -44,6 +47,7 @@ class SentenceTransformer:
                normalize: bool = False,
                device: str = None,
                show_progress_bar: bool = False,
+               use_cache: bool = True,
                **kwargs) -> np.ndarray:
         """
         Encode texts to embeddings with batch processing.
@@ -78,12 +82,21 @@ class SentenceTransformer:
             
             batch_embeddings = []
             for text in batch_texts:
+                if use_cache and text in self._emb_cache:
+                    batch_embeddings.append(self._emb_cache[text])
+                    continue
                 try:
                     embedding = self.model.create_embedding(text)['data'][0]['embedding']
                     batch_embeddings.append(embedding)
+                    if use_cache:
+                        # store a python list so it's JSON-serializable and safe for later use
+                        self._emb_cache[text] = embedding
                 except Exception as e:
                     print(f"Error encoding text: {e}")
-                    batch_embeddings.append([0.0] * self.embedding_dimension)
+                    zero_emb = [0.0] * self.embedding_dimension
+                    batch_embeddings.append(zero_emb)
+                    if use_cache:
+                        self._emb_cache[text] = zero_emb
 			
             if len(batch_embeddings) != len(batch_texts):
                 batch_embeddings.extend([[0.0] * self.embedding_dimension] * (len(batch_texts) - len(batch_embeddings)))
