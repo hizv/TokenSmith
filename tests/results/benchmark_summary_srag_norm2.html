@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>TokenSmith Benchmark Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+
+        .summary {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .test-result {
+            border: 1px solid #ddd;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+            min-width: 0;
+        }
+
+        .passed {
+            border-left: 5px solid #4CAF50;
+        }
+
+        .failed {
+            border-left: 5px solid #f44336;
+        }
+
+        .score {
+            font-weight: bold;
+            color: #2196F3;
+        }
+
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .metric-item {
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 3px;
+        }
+
+        pre {
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 3px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            max-width: 100%;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .answer-content {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 3px;
+            line-height: 1.6;
+        }
+
+        .answer-content ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        .answer-content li {
+            margin: 5px 0;
+        }
+
+        .answer-content p {
+            margin: 10px 0;
+        }
+
+        details {
+            margin: 10px 0;
+            padding: 10px;
+            background: #f0f0f0;
+            border-radius: 3px;
+        }
+
+        summary {
+            cursor: pointer;
+            font-weight: bold;
+            user-select: none;
+        }
+
+        .chunk-item {
+            background: #fff;
+            padding: 10px;
+            margin: 5px 0;
+            border-left: 3px solid #2196F3;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>TokenSmith Benchmark Results</h1>
+
+    <div class="summary">
+        <h2>Summary</h2>
+        <p><strong>Total Tests:</strong> 12</p>
+        <p><strong>Passed:</strong> 11 (91.7%)</p>
+        <p><strong>Failed:</strong> 1</p>
+        <p><strong>Average Score:</strong> 0.834</p>
+        <p><strong>Score Range:</strong> 0.698 - 0.906</p>
+        <p><strong>Active Metrics:</strong> keyword, nli, semantic</p>
+
+        <h3>Per-Metric Averages</h3>
+        <div class="metric-grid">
+            <div class="metric-item"><strong>Keyword:</strong> 0.457</div>
+            <div class="metric-item"><strong>Nli:</strong> 0.970</div>
+            <div class="metric-item"><strong>Semantic:</strong> 0.788</div>
+        </div>
+    </div>
+    <h2>Detailed Results</h2>
+    <div class="test-result passed">
+        <h3>Explain natural join, theta join, and outer join in relational algebra, and state
+            associativity/commutativity properties relevant to query optimization - <span class="score">PASSED</span>
+        </h3>
+        <p><strong>Final Score:</strong> <span class="score">0.831</span></p>
+        <p><strong>Threshold:</strong> 0.780</p>
+        <p><strong>Active Metrics:</strong> semantic, keyword, nli</p>
+
+        <div class="metric-grid">
+            <div class="metric-item"><strong>Nli Similarity:</strong> 0.807</div>
+            <div class="metric-item"><strong>Semantic Similarity:</strong> 0.775</div>
+            <div class="metric-item"><strong>Keyword Similarity:</strong> 1.000</div>
+            <div class="metric-item"><strong>Keywords Matched:</strong> 4/4</div>
+        </div>
+        <details>
+            <summary>📦 Retrieved Chunks (5 chunks)</summary>
+            <div style="margin-top: 10px;">
+
+                <div class="chunk-item">
+                    <strong>Rank 1</strong> | Chunk ID: 991 |
+                    FAISS: rank #1 (score: 0.0001) |
+                    BM25: rank #5 (score: 41.8595)
+                    <pre
+                        style="margin-top: 5px;">A good ordering of join operations is important for reducing the size of temporary results; hence, most query optimizers pay a lot of attention to the join order. As mentioned in equivalence rule 6.a, the natural-join operation is associative. Thus, for all relations r 1 , r 2 , and r 3 : Although these expressions are equivalent, the costs of computing them may differ. Consider again the expression: We could choose to compute teaches ⋈ Π course\_id,title ( course ) first, and then to join the result with: However, teaches ⋈ Π course\_id,title ( course ) is likely to be a large relation, since it contains one tuple for every course taught. In contrast: is probably a small relation. T o see that it is, we note that a university has fewer instructors than courses and, since a university has a large number of departments, it is likely that only a small fraction of the university instructors are associated with the Music department. Thus, the preceding expression results in one tuple for each course taught by an instructor in the Music department. Therefore, the temporary relation that we must store is smaller than it would have been had we computed teaches ⋈ Π course\_id,title ( course ) first. There are other options to consider for evaluating our query. We do not care about the order in which attributes appear in a join, since it is easy to change the order before displaying the result. Thus, for all relations r 1 and r 2 : That is, natural join is commutative (equivalence rule 5). Using the associativity and commutativity of the natural join (rules 5 and 6), consider the following relational-algebra expression: Note that there are no attributes in common between Π course\_id,title ( course ) and instructor, so the join is just a Cartesian product</pre>
+                </div>
+
+                <div class="chunk-item">
+                    <strong>Rank 2</strong> | Chunk ID: 985 |
+                    FAISS: rank #2 (score: 0.0001) |
+                    BM25: rank #1 (score: 51.9940)
+                    <pre
+                        style="margin-top: 5px;">. Since we use a version of relational algebra where every attribute must have a name for it to be referenced, the order of attributes does not actually matter, except when the 6. - result is finally displayed. When the order does matter, a projection operation can be added to one of the sides of the equivalence to appropriately reorder attributes. However, for simplicity, we omit the projection and ignore the attribute order in all our equivalence rules. - a. Natural-join operations are associative . - b. Theta joins are associative in the following manner: - where θ 2 involves attributes from only E 2 and E 3 . Any of these conditions may be empty; hence, it follows that the Cartesian product (×) operation is also associative. The commutativity and associativity of join operations are important for join reordering in query optimization. 7. The selection operation distributes over the theta-join operation under the following two conditions: - a. Selection distributes over the theta-join operation when all the attributes in selection condition θ 1 involve only the attributes of one of the expressions (say, E 1 ) being joined. - b. Selection distributes over the theta-join operation when selection condition θ 1 involves only the attributes of E 1 and θ 2 involves only the attributes of E 2 . 8. The projection operation distributes over the theta-join operation under the following conditions. - a. Let L 1 and L 2 be attributes of E 1 and E 2 , respectively. Suppose that the join condition θ involves only attributes in L 1 ∪ L 2 . Then, - b. Consider a join E 1 ⋈ θ E 2 . Let L 1 and L 2 be sets of attributes from E 1 and E 2 , respectively. Let L 3 be attributes of E 1 that are involved in join condition θ, but are not in L 1 and let L 4 be attributes of E 2 that are involved in join condition θ, but are not in L 2 . Then, Similar equivalences hold for outer join operations ⟕ , ⟖ and ⟗ . - 9. The set operations union and intersection are commutative</pre>
+                </div>
+
+                <div class="chunk-item">
+                    <strong>Rank 3</strong> | Chunk ID: 984 |
+                    FAISS: rank #3 (score: 0.0001) |
+                    BM25: rank #12 (score: 37.7119)
+                    <pre
+                        style="margin-top: 5px;">An equivalence rule says that expressions of two forms are equivalent. We can replace an expression of the first form with an expression of the second form, or vice versathat is, we can replace an expression of the second form by an expression of the first form-since the two expressions generate the same result on any valid database. The optimizer uses equivalence rules to transform expressions into other logically equivalent expressions. We now describe several equivalence rules on relationalalgebra expressions. Some of the equivalences listed appear in Figure 16.3. We use θ,θ 1 ,θ 2 , and so on to denote predicates, L 1 , L 2 , L 3 , and so on to denote lists of attributes, and E , E 1 , E 2 , and so on to denote relational-algebra expressions. A relation name r is simply a special case of a relational-algebra expression and can be used wherever E appears. Figure 16.3 Pictorial representation of equivalences. 1. Conjunctive selection operations can be deconstructed into a sequence of individual selections. This transformation is referred to as a cascade of σ. 2. Selection operations are commutative . 3. Only the final operations in a sequence of projection operations are needed; the others can be omitted. This transformation can also be referred to as a cascade of Π. where L 1 ⊆ L 2 ⊆ ... ⊆ L n . 4. Selections can be combined with Cartesian products and theta joins. This expression is just the definition of the theta join. 5. Theta-join operations are commutative. Recall that the natural-join operator is simply a special case of the theta-join operator; hence, natural joins are also commutative. The order of attributes differs between the left-hand side and right-hand side of the commutativity rule, so the equivalence does not hold if the order of attributes is taken into account. Since we use a version of relational algebra where every attribute must have a name for it to be referenced, the order of attributes does not actually matter, except when the 6</pre>
+                </div>
+
+                <div class="chunk-item">
+                    <strong>Rank 4</strong> | Chunk ID: 930 |
+                    FAISS: rank #4 (score: 0.0001) |
+                    BM25: rank #0 (score: 0.0000)
+                    <pre
+                        style="margin-top: 5px;">The merge-join algorithm (also called the sort-merge-join algorithm) can be used to compute natural joins and equijoins. Let r(R ) and s ( S ) be the relations whose natural join is to be computed, and let R ∩ S denote their common attributes. Suppose that both relations are sorted on the attributes R ∩ S . Then, their join can be computed by a process much like the merge stage in the merge-sort algorithm.</pre>
+                </div>
+
+                <div class="chunk-item">
+                    <strong>Rank 5</strong> | Chunk ID: 1011 |
+                    FAISS: rank #5 (score: 0.0001) |
+                    BM25: rank #0 (score: 0.0000)
+                    <pre
+                        style="margin-top: 5px;">The most common type of query in SQL consists of a join of a few relations, with join predicates and selections specified in the where clause. In this section we consider the problem of choosing the optimal join order for such a query. For a complex join query, the number of different query plans that are equivalent to the query can be large. As an illustration, consider the expression: where the joins are expressed without any ordering. With n = 3, there are 12 different join orderings: In general, with n relations, there are (2( n - 1))! /( n - 1)! different join orders. (We leave the computation of this expression for you to do in Exercise 16.12.) For joins involving small numbers of relations, this number is acceptable; for example, with n = 5, the number is 1680. However, as n increases, this number rises quickly. With n = 7, the number is 665,280; with n = 10, the number is greater than 17.6 billion! Luckily, it is not necessary to generate all the expressions equivalent to a given expression. For example, suppose we want to find the best join order of the form: which represents all join orders where r 1 , r 2 , and r 3 are joined first (in some order), and the result is joined (in some order) with r 4 and r 5 . There are 12 different join orders for computing r 1 ⋈ r 2 ⋈ r 3 , and 12 orders for computing the join of this result with r 4 and r 5 . Thus, there appear to be 144 join orders to examine. However, once we have found the best join order for the subset of relations { r 1 , r 2 , r 3 }, we can use that order for further joins with r 4 and r 5 , and we can ignore all costlier join orders of r 1 ⋈ r 2 ⋈ r 3 . Thus, instead of 144 choices to examine, we need to examine only 12 + 12 choices. Using this idea, we can develop a dynamic-programming algorithm for finding optimal join orders. Dynamicprogramming algorithms store results of computations and reuse them, a procedure that can reduce execution time greatly</pre>
+                </div>
+
+            </div>
+        </details>
+
+        <h4>Expected Answer:</h4>
+        <pre>Natural join forms a Cartesian product, selects tuples with equal values on common attributes, and removes duplicate attributes, while theta join combines a Cartesian product with a general predicate; both enable combining relations under conditions, and natural join is commutative and associative, which supports join reordering in optimization; outer joins (left, right, full) extend join by padding unmatched tuples with nulls to avoid loss of information and follow join semantics except where unmatched tuples are added with nulls.</pre>
+
+        <h4>Retrieved Answer:</h4>
+        <div class="answer-content">
+            <pre
+                style="white-space: pre-wrap;">Natural Join:
+In relational algebra,A good ordering of join operations is important for reducing the size of temporary results; hence, most query optimizers pay attention to the join order. Natural joins are associative:
+
+1. For relations \(r_1\), \(r_2\), and \(r_3\):
+
+   \[
+   r_1 \bowtie_{θ} r_2 \bowtie_{θ} r_3 = r_1 \bowtie_{θ} (r_2 \bowtie_{θ} r_3)
+   \]
+
+However, since this snippet does not provide specific examples or details about natural joins, it cannot be rewritten using facts directly supported by the provided excerpts without unsupported claims. The rest of your request appears unrelated to the given text excerpt. combinesSince every attribute must have a name when referenced in relational algebra, the order does not actually matter except when displaying the final result (equivalence rule 6). When ordering matters, we can reorder using a projection operation on one side of equivalence rules without affecting other expressions' costs or results. Natural-join operations are associative (rule 5), meaning that regardless of how relations are joined together, the outcome remains consistent. This property simplifies query optimization significantly since most optimizers focus on joining orders for efficiency reasons. The selection distributes over theta joins under specific conditions:
+1. Selection distributes over theta-join if all attributes involved in the selection condition θ 1 belong only to one expression E 1. 2. Selection distributes over theta-join if the selection condition θ 1 involves only attributes from E 1 and θ 2 involves only attributes from E 2. Projection also distributes over theta joins based on these same conditions. Join reordering is important because Cartesian products remain commutative and associative; this allows us to rearrange joins efficiently during query execution. Outer-join operations follow similar principles but with additional considerations due to their nature as left, right, or full outer joins:
+
+Left Outer Join: Computes r ⋈ Π course\_id or moreSince every attribute must have a name when referenced in relational algebra, the order does not actually matter unless explicitly stated otherwise (Excerpt 6.a). Natural-join operations are associative (Excerpt 5), which means we don't need to worry about their specific order during query optimization. The commutativity and associativity of join operations help optimize temporary results size; hence, most query optimizers pay attention to the join order (Excerpts 7-8). Outer joins involve matching attributes from two relations based on common or non-common conditions (Excerpt 4.1.3). The natural-left outer join adds an additional tuple for each unmatched take record where ID is missing from student (Excerpt 9). To evaluate our query, consider computing teaches ⋈ Π course\_id,title (course) first, then joining its result with another set of tuples (Excerpt 20)..**Explanation:**
+The provided text excerpt discusses various aspects related to database query optimization using relational algebra. Here's an explanation based on the given information:
+
+### Natural Join Associativity:
+Natural join operations are associative because they follow certain conditions involving specific attributes from different relations. ### Commutativity and Associativity in Joins:
+Joins (both inner and outer) are commutative and associative under specified conditions. For instance, joining two tables \( r_1 \) and \( r_2 \), then joining another table \( r_3 \) can result in equivalent expressions as long as the attributes involved do not overlap significantly. ### Projection Operations:
+Projection operations distribute over theta-joins under specific conditions regarding which attributes appear in the selection condition or the join condition itself. ### Set Operations:
+Union and intersection operators are commutative; this means that regardless of their sequence, the results will remain identical. ### Example Explanation:
+Consider the following example snippet about natural joins and projection operations:
+
+```plaintext
+Example: Consider two tables A and B:
+
+Excerpts:
+a. Natural-join operations are associative. b. Theta joins are associative in the following manner:
+   - where θ involves attributes from only E 2 and E 3 . c. Any of
+
+Since we use a version of relational algebra where every attribute must have a name for it to be referenced, the order of attributes does not actually matter, except when the result is finally displayed (Excerpt 1). When the order matters, a projection operation can be added to one of the sides of the equivalence to appropriately reorder attributes (Excerpt 3). The optimizer uses equivalence rules to transform expressions in logically equivalent forms by replacing an expression of the first form with an expression of the second form or vice versa (Excerpts 4-7). Some equivalences listed appear in Figure 16.3. Conjunctive selection operations can be deconstructed into a sequence of individual selections (Exerpt 8), which means that these two forms generate the same results on any valid database (Excerpts 9 & 10). Selections are commutative (Excerpts 2 & 5) and only the final operations in a sequence of projection operations need to be considered; other projections can be omitted (Excerpts 3 & 6). Theta join operations are also commutative (Excerpts 5 & 7), meaning they do not depend on the order of attributes between the left-hand side and right-hand side
+**Table B**:  
+| ID | Age   |
+|---|------|
+| 2  | 30    |
+
+**Excerpts Summary**:
+
+1. **Attribute Order Ignored**: In relational algebra, attribute order does not matter unless explicitly stated otherwise. 2. **Natural Join Associativity**: Natural join (⋈) is associative; this means you can rearrange the relations involved without changing the outcome. 3. **Theta Joins**: Theta joins follow specific rules for associativity based on attributes from different tables. 4. **Selection Distributes Over Theta-Joins**: Selection distributes over theta-joins under certain conditions. 5. **Projection Distributes Over Theta-Joins**: Projection also distributes over theta-joins under similar conditions. 6. **Join Commutativity**: The natural join operation is commutative, meaning the result of joining two relations depends only on their structure and not on which one comes first. **Explanation**:
+The snippet discusses various aspects related to database operations such as natural joins, projection, selection, and outer joins. It emphasizes that while the order of attributes in a relation doesn't affect its representation or computation, it's important to consider how these operations are applied when dealing with larger datasets. For example, computing an outer
+
+A natural join combines tuples based on matching conditions between two relations without explicitly specifying which columns belong to each table. **Key Points:**
+1. **Natural Join Associativity:** Natural joins are associative. 2. **Theta Joins:** Theta joins involve specific attribute combinations within tables. 3. **Selection Distributes Over Theta-Joins:** Selection distributes over theta-joins under certain conditions. 4. **Projection Distributes Over Theta-Joins:** Projection also distributes over theta-joins under different conditions. 5. **Join Order Importance:** Properly ordering joins reduces temporary results size; most optimizers pay attention to it. 6. **Outer Joins Types:** There are three types of outer joins (left, right, full). 7. **Left Outer Join:** Preserves only matched tuples from one side. 8. **Right Outer Join:** Preserves only matched tuples from another side. 9. **Full Outer Join:** Combines both sides preserving non-matched tuples. **Example Usage:**
+Consider a scenario where we want to find all students who have taken no courses:
+```sql
+SELECT ID FROM STUDENT NATURAL LEFT OUTER JOIN TAKES WHERE COURSE_ID IS NULL;
+```
+This query uses the left outer join operation and returns student IDs for those would combine these tables into one result set as follows:
+
+**Result Set**
+
+Since our database uses a specific form of relational algebra, each attribute needs an identifier to reference them effectively. However, this doesn't affect how results are displayed or handled until they're finally shown. When ordering matters, adding a **projection operation** allows us to reorder attributes appropriately without affecting their meaning in the final result set. We omit projections because doing so would complicate the process unnecessarily while simplifying calculations. Natural-join operations being associative means you can rearrange relations involved in joining without changing the outcome. For instance:
+
+```sql
+R1 ⋈ R2 ⋈ R3 = R4 ⋈ R5 ⋈ R6
+```
+
+This property holds true regardless of whether `θ` involves only one relation's attributes or multiple relations' attributes combined with another predicate. Theta joins also follow associativity rules similar to natural join but apply specifically within certain conditions involving two different sets of attributes (`E_1`, `E_2`) and predicates that involve those sets respectively. The commutative nature of these operations is crucial for optimizing query execution plans by allowing reordering of operands during evaluation stages like projection and selection. In summary:
+- Natural-join order does not matter. - Theta-join order follows specific patterns:
+Since we use a version of relational algebra where every attribute must have a name for it to be referenced, the order of attributes does not actually matter, except when the result is finally displayed (Excerpt 6). When the order matters, a projection operation can be added to one of the sides of the equivalence to appropriately reorder attributes. However, for simplicity, we omit the projection in our equivalence rules. Natural-join operations are associative (Excerpt 1). Theta joins are associative under certain conditions: θ2 involves attributes from only E2 and E3 (Excerpts 7 & 8). The selection operation distributes over the theta-join operation under specific conditions (Excerpts 9 & 10). Join reordering is important for reducing temporary results size (Excerpts 4 & 5). Commutativity and associativity of join operations help optimize query execution plans (Excerpts 6 & 7). Using these equivalences, expressions of two forms are logically equivalent; transformations between them may change their costs but generate the same result on any valid database (Excerpts 11 - 14). Some equivalences listed appear in Figure 16.3 (Excerpts 15 - 16).
+Since we use a version of relational algebra where every attribute must have a name for it to be referenced, the order of attributes does not actually matter, except when the result is finally displayed (Excerpt 1). When the order matters, a projection operation can be added to one of the sides of the equivalence to appropriately reorder attributes (Excerpt 3). The optimizer uses equivalence rules to transform expressions in logically equivalent forms by replacing an expression of the first form with an expression of the second form or vice versa (Excerpts 4 and 7). Some equivalences listed appear in Figure 16.3. Conjunctive selection operations can be deconstructed into individual selections using a cascade of σ transformations (Exerpt 1). Selections are commutative (Exerpt 2). Only the final projections need to be kept; other projections can be omitted (Exerpt 3). Selections can combine with Cartesian products and theta joins (Exerpt 4). Theta-join operations are commutative (Exerpt 5), but their order differs between left-hand side and right-hand side due to Excerpt 6. Therefore, natural join is associative (Exerpt 6) since it's a special case of
+
+Theta Join (or Theta-Sort):
+A theta join is similar to a natural join but uses a condition instead of equality-based matching. Outer Join:
+An outer join returns all records from both relations exceptSince every attribute must have a name when referenced in relational algebra, the order does not actually matter unless explicitly required by an equivalence rule or query optimization context (Excerpt 6.a). Natural-join operations are associative (Excerpt 5), which simplifies reordering join operations during query optimization. The commutativity and associativity of join operations ensure efficient reordering of temporary results for better performance (Excerpts 7 & 8). Outer-join operations involve additional steps such as padding attributes from one side with `null` values and adding them to the result set (Excerpts 9 & 10). In summary:
+- Join orders can be optimized based on natural-join properties. - Outer joins require specific handling due to their nature involving missing data. with nulls in the joined columnSince every attribute must have a name when referenced in relational algebra, the order does not matter unless explicitly required by an equivalence rule or query optimization considerations (Excerpt 6.a). Natural-join operations are associative (Excerpt 5), which simplifies handling multiple relations during queries. For natural-left outer joins, we take the union of takes and student, adding additional tuples where ID is missing from student (Excerpt 4.1.3). The commutativity and associativity properties ensure efficient reordering of join operations for better performance (Excerpts 7 & 8). Outer-join operations involve joining two tables while optionally including unmatched rows based on specified conditions (Excerpts 9 & 10). Using these rules, consider evaluating teaches ⋈ Π course\_id,title (course) first followed by r Π R (q1) to avoid large temporary results (Excerpts 2-3).sThere are three types of outer joins: left outer join, right outer join, and full outer join. Excerpts:
+- There are three forms of outer join: - The left outer join preserves tuples only in the relation named before (to the left of ) the left outer join operation. - The right outer join preserves tuples only in the relation named after (to the right of) the right outer join operation. - The full outer join preserves tuples in both relations. In contrast, the join operations we studied earlier do not preserve nonmatched tuples and are called inner-join operations. Normal joins are distinguished from outer joins using a keyword like "inner" or without it for default behavior. The snippet provided does not contradict these facts directly but rather expands on them with examples and explanations related to natural joins and their equivalence to inner joins. It also discusses commutative properties of set operations such as union and intersection, which is supported by the excerpts. To distinguish normal joins from outer joins, normal joins are called inner joins in SQL. A join clause can specify inner join instead of outer join to indicate that a normal join should be used. When no outer prefix is specified, the default join type is an inner join. Natural joins are equivalent to natural inner joins. Figure Associativity and Commutativity Properties Relevant to Query Optimization:
+- Natural-join operation is associative. This means that regardless of how we group the relations for joining, the final result will be the same. - The order of attributes does not matter when using projection operations because they do not affect the outcome of an expression. - Equivalence rules allow us to transform expressions without changing their results if they generate the same output on any valid database schema. These properties help query optimizers determine the most efficient way to compute queries by rearranging or transforming expressions while preserving equivalence.</pre>
+        </div>
+    </div>
+
+    <div class="test-result passed">
+        <h3>How do aggregation with grouping and generalized projection work, and how are nulls treated in selections,
+            joins, projections, set operations, and aggregates - <span class="score">PASSED</span></h3>
+        <p><strong>Final Score:</strong> <span class="score">0.841</span></p>
+        <p><strong>Threshold:</strong> 0.800</p>
+        <p><strong>Active Metrics:</strong> semantic, keyword, nli</p>
+
+        <div class="metric-grid">
+            <div class="metric-item"><strong>Nli Similarity:</strong> 0.999</div>
+            <div class="metric-item"><strong>Semantic Similarity:</strong> 0.730</div>
+            <div class="metric-item"><strong>Keyword Similarity:</strong> 0.500</div>
+            <div class="metric-item"><strong>Keywords Matched:</strong> 3/6</div>
+        </div>
+        <details>
+            <summary>📦 Retrieved Chunks (5 chunks)</summary>
+            <div style="margin-top: 10px;">
+
+                <div class="chunk-item">
+                    <strong>Rank 1</strong> | Chunk ID: 119 |
+                    FAISS: rank #1 (score: 0.0001) |
+                    BM25: rank #0 (score: 0.0000)
+                    <pre
+                        style="margin-top: 5px;">Null values, when they exist, complicate the processing of aggregate operators. For example, assume that some tuples in the instructor relation have a null value for salary . Consider the following query to total all salary amounts: ## select sum ( salary ) from instructor ; The values to be summed in the preceding query include null values, since we assumed that some tuples have a null value for salary. Rather than say that the overall sum is itself null , the SQL standard says that the sum operator should ignore null values in its input. In general, aggregate functions treat nulls according to the following rule: All aggregate functions except count (*) ignore null values in their input collection. As a result of null values being ignored, the collection of values may be empty. The count of an empty collection is defined to be 0, and all other aggregate operations return a value of null when applied on an empty collection. The effect of null values on some of the more complicated SQL constructs can be subtle. A Boolean data type that can take values true , false , and unknown was introduced in SQL: 1999. The aggregate functions some and every can be applied on a collection of Boolean values, and compute the disjunction ( or ) and conjunction ( and ), respectively, of the values.</pre>
+                </div>
+
+                <div class="chunk-item">
+                    <strong>Rank 2</strong> | Chunk ID: 109 |
+                    FAISS: rank #2 (score: 0.0001) |
+                    BM25: rank #0 (score: 0.0000)
+                    <pre
+                        style="margin-top: 5px;">Null values present special problems in relational operations, including arithmetic operations, comparison operations, and set operations. The result of an arithmetic expression (involving, for example, +, -, *, or /) is null if any of the input values is null. For example, if a query has an expression r.A + 5, and rA is null for a particular tuple, then the expression result must also be null for that tuple. Comparisons involving nulls are more of a problem. For example, consider the comparison '1 &lt; null '. It would be wrong to say this is true since we do not know what the null value represents. But it would likewise be wrong to claim this expression is false; if we did, ' not (1 &lt; null )' would evaluate to true, which does not make sense. SQL therefore treats as unknown the result of any comparison involving a null value (other than predicates is null and is not null , which are described later in this section). This creates a third logical value in addition to true and false. Since the predicate in a where clause can involve Boolean operations such as and , or , and not on the results of comparisons, the definitions of the Boolean operations are extended to deal with the value unknown . - and : The result of true and unknown is unknown, false and unknown is false, while unknown and unknown is unknown . - or : The result of true or unknown is true, false or unknown is unknown, while unknown or unknown is unknown . - not : The result of not unknown is unknown. You can verify that if r.A is null, then '1 &lt; r.A' as well as ' not (1 &lt; r.A )' evaluate to unknown. If the where clause predicate evaluates to either false or unknown for a tuple, that tuple is not added to the result. SQL uses the special keyword null null value</pre>
+                </div>
+
+                <div class="chunk-item">
+                    <strong>Rank 3</strong> | Chunk ID: 289 |
+                    FAISS: rank #3 (score: 0.0001) |
+                    BM25: rank #0 (score: 0.0000)
+                    <pre
+                        style="margin-top: 5px;">. Observe that a grouping is present for each prefix of the attributes listed in the rollup clause, including the empty prefix. The query result contains the union of the results by these groupings. The different groupings generate different schemas; to bring the results of the different groupings to a common schema, tuples in the result contain null as the value of those attributes not present in a particular grouping. 16 The cube construct generates an even larger number of groupings, consisting of all subsets of the attributes listed in the cube construct. For example, the query: select item\_name, color, clothes\_size , sum ( quantity ) from sales group by cube ( item\_name , color, clothes\_size ); generates the following groupings: { ( item\_name, color, clothes\_size ), ( item\_name, color ), ( item-name, clothes\_size ), ( color, clothes\_size ), ( item\_name ), ( color ), ( clothes\_size ), () } To bring the results of the different groupings to a common schema, as with rollup , tuples in the result contain null as the value of those attributes not present in a particular grouping. Multiple rollup s and cube s can be used in a single group by clause. For instance, the following query: select item\_name, color, clothes\_size , sum ( quantity ) from sales group by rollup ( item\_name ), rollup ( color , clothes\_size ); generates the groupings: { ( item\_name, color, clothes\_size ), ( item\_name, color ), ( item\_name ), ( color, clothes\_size ), ( color ), () } To understand why, observe that rollup ( item\_name ) generates a set of two groupings, {( item\_name ), () } , while rollup ( color , clothes\_size ) generates a set of three groupings, { ( color , clothes\_size ), ( color ), () } . The Cartesian product of the two sets gives us the six groupings shown. Neither the rollup nor the cube clause gives complete control on the groupings that are generated</pre>
+                </div>
+
+                <div class="chunk-item">
+                    <strong>Rank 4</strong> | Chunk ID: 958 |
+                    FAISS: rank #4 (score: 0.0001) |
+                    BM25: rank #10 (score: 32.4609)
+                    <pre
+                        style="margin-top: 5px;">Recall the aggregation function (operator), discussed in Section 3.7. For example, the function select dept\_name, avg ( salary ) from instructor group by dept\_name; computes the average salary in each university department. The aggregation operation can be implemented in the same way as duplicate elimination. We use either sorting or hashing, just as we did for duplicate elimination, but based on the grouping attributes ( dept\_name in the preceding example). However, instead of eliminating tuples with the same value for the grouping attribute, we gather them into groups and apply the aggregation operations on each group to get the result. The cost estimate for implementing the aggregation operation is the same as the cost of duplicate elimination for aggregate functions such as min, max, sum, count, and avg. Instead of gathering all the tuples in a group and then applying the aggregation operations, we can implement the aggregation operations sum, min, max, count, and avg on the fly as the groups are being constructed. For the case of sum, min, and max, when two tuples in the same group are found, the system replaces them with a single tuple containing the sum, min, or max, respectively, of the columns being aggregated. For the count operation, it maintains a running count for each group for which a tuple has been found. Finally, we implement the avg operation by computing the sum and the count values on the fly, and finally dividing the sum by the count to get the average. If all tuples of the result fit in memory, the sort-based and the hash-based implementations do not need to write any tuples to disk. As the tuples are read in, they can be inserted in a sorted tree structure or in a hash index. When we use on-the-fly aggregation techniques, only one tuple needs to be stored for each of the groups</pre>
+                </div>
+
+                <div class="chunk-item">
+                    <strong>Rank 5</strong> | Chunk ID: 290 |
+                    FAISS: rank #5 (score: 0.0001) |
+                    BM25: rank #23 (score: 28.4176)
+                    <pre
+                        style="margin-top: 5px;">. The Cartesian product of the two sets gives us the six groupings shown. Neither the rollup nor the cube clause gives complete control on the groupings that are generated. For instance, we cannot use them to specify that we want only groupings { ( color , clothes\_size ), ( clothes\_size, item\_name )}. Such restricted groupings can be generated by using the grouping sets construct, in which one can specify the specific list of groupings to be used. T o obtain only groupings { ( color , clothes\_size ), ( clothes\_size, item\_name )}, we would write: select item\_name, color, clothes\_size , sum ( quantity ) from sales group by grouping sets (( color , clothes\_size ), ( clothes\_size, item\_name )); Analysts may want to distinguish those nulls generated by rollup and cube operations from 'normal' nulls actually stored in the database or arising from an outer join. The grouping () function returns 1 if its argument is a null value generated by a rollup or cube and 0 otherwise (note that the grouping function is different from the grouping sets construct). If we wish to display the rollup query result shown in Figure 5.19, but using the value 'all' in place of nulls generated by rollup , we can use the query: ) = 1 ## select ( case when grouping ( item\_name then ' all ' ## else item\_name end ) as item\_name, ( case when grouping ( color ) = 1 then ' all ' else color end ) as color , sum ( quantity ) as quantity from sales group by rollup ( item\_name , color ); One might consider using the following query using coalesce , but it would incorrectly convert null item names and colors to all : select coalesce (i tem\_name , ' all ') as item\_name, coalesce ( color , ' all ') as color , sum ( quantity ) as quantity from sales group by rollup ( itemname, color );</pre>
+                </div>
+
+            </div>
+        </details>
+
+        <h4>Expected Answer:</h4>
+        <pre>Aggregation partitions tuples by grouping attributes and applies functions like sum, avg, min, max to each group, producing one result per group; generalized projection permits arithmetic expressions and attribute renaming in the projection list; with nulls, selections treat comparisons as unknown and exclude them, joins inherit selection semantics, projections and set operations treat identical tuples with nulls as duplicates, and aggregates ignore nulls in aggregated attributes and return null only when the multiset is empty.</pre>
+
+        <h4>Retrieved Answer:</h4>
+        <div class="answer-content">
+            <pre
+                style="white-space: pre-wrap;">Aggregation works by combining multiple rows into single row values according to some criteria such as groups, partitions, or ranges. Grouping involves breaking down a dataset into subsets called "groups" based on certain conditions. Null handling is crucial because it complicates various relational operations like arithmetic, comparisons, and set operations. When dealing with aggregate functions involving nulls:
+
+1. Arithmetic Operations:
+   - If any input value is null, the result will also be null. 2. Comparison Operations:
+   - A comparison operation returns true if both operands have non-null values; otherwise, false. 3. Set Operations:
+   - Inset union, intersection, difference, etc., when at least one operand has a null value, results in an empty set. 4. Aggregations:
+   - Aggregate operators treat all inputs equally regardless of whether they're null or not. 5. Selections:
+   - Null values must match specific patterns for selection rules to apply correctly. 6. Joins:
+   - Join operations can handle nulls differently depending on their type (INNER JOIN vs LEFT/RIGHT OUTER JOIN). 7. Projections:
+   - Projection ignores null columns unless explicitly specified. 8. Sets Operations:
+   - The presence of nulls affects how sets are formed and combined. 9. Generalized Projection:
+   - This allows projecting only desired attributes while ignoring others, including those that might contain nulls. In summary, aggregation involves combining rows into single row values according to groupings criteria. Handling nulls requires understanding their impact across various relational operations and ensuring proper treatment within these processes.</pre>
+        </div>
+    </div>
+
+    <div class="test-result passed">
+        <h3>What are the ACID properties of transactions, and how do concurrency control and recovery components enforce
+            them during concurrent execution and failures - <span class="score">PASSED</span></h3>
+        <p><strong>Final Score:</strong> <span class="score">0.873</span></p>
+        <p><strong>Threshold:</strong> 0.820</p>
+        <p><strong>Active Metrics:</strong> semantic, keyword, nli</p>
+
+        <div class="metric-grid">
+            <div class="metric-item"><strong>Nli Similarity:</strong> 0.999</div>
+            <div class="metric-item"><strong>Semantic Similarity:</strong> 0.847</div>
+            <div class="metric-item"><strong>Keyword Similarity:</strong> 0.500</div>
+            <div class="metric-item"><strong>Keywords Matched:</strong> 4/8</div>
+        </div>
+        <details>
+            <summary>📦 Retrieved Chunks (5 chunks)</summary>
+            <div style="margin-top: 10px;">
+
+                <div class="chunk-item">
+                    <strong>Rank 1</strong> | Chunk ID: 1058 |
+                    FAISS: rank #1 (score: 0.0001) |
+                    BM25: rank #0 (score: 0.0000)
+                    <pre
+                        style="margin-top: 5px;">. This property is referred to as isolation . Even if the system ensures correct execution of a transaction, this serves little purpose if the system subsequently crashes and, as a result, the system 'forgets' about the transaction. Thus, a transaction's actions must persist across crashes. This property is referred to as durability . Because of the above three properties, transactions are an ideal way of structuring interaction with a database. This leads us to impose a requirement on transactions themselves. A transaction must preserve database consistency-if a transaction is run atomically in isolation starting from a consistent database, the database must again be consistent at the end of the transaction. This consistency requirement goes beyond the data-integrity constraints we have seen earlier (such as primary-key constraints, referential integrity, check constraints, and the like). Rather, transactions are expected to go beyond that to ensure preservation of those application-dependent consistency constraints that are too complex to state using the SQL constructs for data integrity. How this is done is the responsibility of the programmer who codes a transaction. This property is referred to as consistency . To restate the above more concisely, we require that the database system maintain the following properties of the transactions: - Atomicity . Either all operations of the transaction are reflected properly in the database, or none are. - Consistency . Execution of a transaction in isolation (i.e., with no other transaction executing concurrently) preserves the consistency of the database. - Isolation . Even though multiple transactions may execute concurrently, the system guarantees that, for every pair of transactions T i and T j , it appears to T i that either T j finished execution before T i started or T j started execution after T i finished. Thus, each transaction is unaware of other transactions executing concurrently in the system. - Durability</pre>
+                </div>
+
+                <div class="chunk-item">
+                    <strong>Rank 2</strong> | Chunk ID: 1055 |
+                    FAISS: rank #2 (score: 0.0001) |
+                    BM25: rank #11 (score: 37.2886)
+                    <pre
+                        style="margin-top: 5px;">. Thus, database systems must provide mechanisms to isolate transactions from the effects of other concurrently executing transactions. This property is called isolation . Chapter 17 describes the concept of a transaction in detail, including the properties of atomicity, durability, isolation, and other properties provided by the transaction abstraction. In particular, the chapter makes precise the notion of isolation by means of a concept called serializability. Chapter 18 describes several concurrency-control techniques that help implement the isolation property. Chapter 19 describes the recovery management component of a database, which implements the atomicity and durability properties. Taken as a whole, the transaction-management component of a database system allows application developers to focus on the implementation of individual transactions, ignoring the issues of concurrency and fault tolerance. ## Transactions Often, a collection of several operations on the database appears to be a single unit from the point of view of the database user. For example, a transfer of funds from a checking account to a savings account is a single operation from the customer's standpoint; within the database system, however, it consists of several operations. It is essential that all these operations occur, or that, in case of a failure, none occur. It would be unacceptable if the checking account were debited but the savings account not credited. Collections of operations that form a single logical unit of work are called transactions. A database system must ensure proper execution of transactions despite failureseither the entire transaction executes, or none of it does. Furthermore, it must manage concurrent execution of transactions in a way that avoids the introduction of inconsistency</pre>
+                </div>
+
+                <div class="chunk-item">
+                    <strong>Rank 3</strong> | Chunk ID: 1061 |
+                    FAISS: rank #3 (score: 0.0001) |
+                    BM25: rank #22 (score: 33.9258)
+                    <pre
+                        style="margin-top: 5px;">. Let T i be a transaction that transfers $50 from account A to account B . This transaction can be defined as: Let us now consider each of the ACID properties. (For ease of presentation, we consider them in an order different from the order A-C-I-D.) - Consistency : The consistency requirement here is that the sum of A and B be unchanged by the execution of the transaction. Without the consistency requirement, money could be created or destroyed by the transaction! It can be verified easily that, if the database is consistent before an execution of the transaction, the database remains consistent after the execution of the transaction. Ensuring consistency for an individual transaction is the responsibility of the application programmer who codes the transaction. This task may be facilitated by automatic testing of integrity constraints, as we discussed in Section 4.4. - Atomicity : Suppose that, just before the execution of transaction T i , the values of accounts A and B are $1000 and $2000, respectively. Now suppose that, during the execution of transaction T i , a failure occurs that prevents T i from completing its execution successfully. Further, suppose that the failure happened after the write( A ) operation but before the write( B ) operation. In this case, the values of accounts A and B reflected in the database are $950 and $2000. The system destroyed $50 as a result of this failure. In particular, we note that the sum A + B is no longer preserved. Thus, because of the failure, the state of the system no longer reflects a real state of the world that the database is supposed to capture. We term such a state an inconsistent state . We must ensure that such inconsistencies are not visible in a database system. Note, however, that the system must at some point be in an inconsistent state</pre>
+                </div>
+
+                <div class="chunk-item">
+                    <strong>Rank 4</strong> | Chunk ID: 36 |
+                    FAISS: rank #4 (score: 0.0001) |
+                    BM25: rank #3 (score: 43.3932)
+                    <pre
+                        style="margin-top: 5px;">. The execution of these two programs one after the other will indeed preserve consistency. However, each program by itself does not transform the database from a consistent state to a new consistent state. Thus, those programs are not transactions. Ensuring the atomicity and durability properties is the responsibility of the database system itself-specifically, of the recovery manager . In the absence of failures, all transactions complete successfully, and atomicity is achieved easily. However, because of various types of failure, a transaction may not always complete its execution successfully. If we are to ensure the atomicity property, a failed transaction must have no effect on the state of the database. Thus, the database must be restored to the state in which it was before the transaction in question started executing. The database system must therefore perform failure recovery , that is, it must detect system failures and restore the database to the state that existed prior to the occurrence of the failure. Finally, when several transactions update the database concurrently, the consistency of data may no longer be preserved, even though each individual transaction is correct. It is the responsibility of the concurrency-control manager to control the interaction among the concurrent transactions, to ensure the consistency of the database. The transaction manager consists of the concurrency-control manager and the recovery manager. The basic concepts of transaction processing are covered in Chapter 17. The management of concurrent transactions is covered in Chapter 18. Chapter 19 covers failure recovery in detail. The concept of a transaction has been applied broadly in database systems and applications. While the initial use of transactions was in financial applications, the concept is now used in real-time applications in telecommunication, as well as in the management of long-duration activities such as product design or administrative workflows.</pre>
+                </div>
+
+                <div class="chunk-item">
+                    <strong>Rank 5</strong> | Chunk ID: 1057 |
+                    FAISS: rank #5 (score: 0.0001) |
+                    BM25: rank #0 (score: 0.0000)
+                    <pre
+                        style="margin-top: 5px;">A transaction is a unit of program execution that accesses and possibly updates various data items. Usually, a transaction is initiated by a user program written in a highlevel data-manipulation language (typically SQL), or programming language (e.g., C++ or Java), with embedded database accesses in JDBC or ODBC. A transaction is delimited by statements (or function calls) of the form begin transaction and end transaction . The transaction consists of all operations executed between the begin transaction and end transaction . This collection of steps must appear to the user as a single, indivisible unit. Since a transaction is indivisible, it either executes in its entirety or not at all. Thus, if a transaction begins to execute but fails for whatever reason, any changes to the database that the transaction may have made must be undone. This requirement holds regardless of whether the transaction itself failed (e.g., if it divided by zero), the operating system crashed, or the computer itself stopped operating. As we shall see, ensuring that this requirement is met is difficult since some changes to the database may still be stored only in the main-memory variables of the transaction, while others may have been written to the database and stored on disk. This 'all-ornone' property is referred to as atomicity . Furthermore, since a transaction is a single unit, its actions cannot appear to be separated by other database operations not part of the transaction. While we wish to present this user-level impression of transactions, we know that reality is quite different. Even a single SQL statement involves many separate accesses to the database, and a transaction may consist of several SQL statements. Therefore, the database system must take special actions to ensure that transactions operate properly without interference from concurrently executing database statements. This property is referred to as isolation</pre>
+                </div>
+
+            </div>
+        </details>
+
+        <h4>Expected Answer:</h4>
+        <pre>Atomicity ensures a transaction's actions are all-or-nothing, enforced by abort/rollback and recovery that can undo partial effects; consistency requires each transaction to preserve database integrity when run alone and relies on the scheduler to admit serializable, recoverable, and preferably cascadeless schedules; isolation makes concurrent executions equivalent to some serial order, commonly achieved with two-phase locking variants that prevent reads of uncommitted data; durability guarantees committed effects persist across crashes via logging to stable storage and redo on restart; together, the transaction manager, concurrency-control (e.g., lock manager under strict 2PL), and recovery manager (logging/checkpoints) provide these guarantees, and in distributed settings coordinators run two-phase commit to atomically commit across sites.</pre>
+
+        <h4>Retrieved Answer:</h4>
+        <div class="answer-content">
+            <pre
+                style="white-space: pre-wrap;">The ACID properties ensure that transactions behave reliably under normal conditions as well as when there are errors. - Atomicity ensures that all operations within a single transaction happen together; they either succeed completely or fail entirely. - Concurrency Control Component:
+    - Enforces isolation among concurrently executing transactionsTransactions often involve collections of multiple operations performed by users on databases. These operations appear to execute together for the end-user perspective, such as transferring money between accounts. However, each operation may require different resources like locks or barriers. In distributed systems, ensuring ACID properties (Atomicity, Consistency, Isolation, Durability) requires careful management due to potential failures at individual nodes. The document emphasizes that isolation ensures no data corruption occurs during concurrent executions and durability guarantees that committed changes persist even after node failures. To summarize:
+- Transactions consist of multiple operations executed by users. - Ensuring atomicity, consistency, isolation, and durability across distributed components is crucial. - Locks or barriers can help coordinate access among local databases within a global context. - Global transactions need special handling since they span multiple nodes independently failing could lead to inconsistent states. Thus, managing these aspects effectively allows consistent and reliable database operations regardless of network disruptions or component failures. - Prevents partial completion of transactions due to race conditions between multiple processes accessing shared resources simultaneously. - Consistency guarantees that after committing a transaction, the database remains in an acceptable state. - Recovery Manager:
+    - Monitors for any inconsistencies introduced by failed transactions. - Restores the system's consistency throughA transaction is defined as a series of related database operations executed by a single process (e.g., an application) without interruption. The key characteristics include:
+
+1. **Atomicity**: All operations either complete successfully or fail together. 2. **Consistency**: Ensures data integrity before committing changes. For distributed systems:
+- Local transactions operate independently with local databases. - Global transactions involve multiple nodes and need careful management due to potential failures. Database recovery involves restoring the state prior to any failed transaction using techniques like serializability for isolation properties. Concurrency control ensures no inconsistencies arise during simultaneous updates across different parts of the database. In summary, transactions allow efficient handling of collections of database operations while ensuring consistency and fault tolerance.backDatabase systems provide mechanisms to isolate transactions from concurrent effects by ensuring atomicity, durability, consistency, and other properties provided by the transaction abstraction. Atomicity ensures proper execution regardless of failure, while recovery management handles inconsistencies due to failures. Local transactions preserve ACID properties within their own database, whereas global transactions require careful coordination among multiple databases. Accessing various data items through transactions preserves ACID properties in a distributed system, but managing concurrency control becomes complex when dealing with global transactions involving multiple databases. Ensuring consistent updates requires careful handling of node failures and communication links, which can lead to erroneous results if not properly managed. Thus, isolation, atomicity, durability, and consistency must be carefully balanced to prevent inconsistent states and maintain data integrity across different environments and applications. The concept of transactions has been widely applied in both financial and real-time applications such as telecommunication and administrative workflows. While initial use was primarily for financial applications, it is now used in diverse fields including product design and long-duration activities like research or development. In summary, understanding how transactions work under varying conditions (local vs. global) helps ensure reliable data processing even in challenging scenarios involving networked databases and potential failures. [UNSUPPORTED]</pre>
+        </div>
+    </div>
+
+    <div class="test-result failed">
+        <h3>How does a B+ tree index organize keys and support search, insert, and delete, and why is it preferred over
+            binary trees for disk-based access - <span class="score">FAILED</span></h3>
+        <p><strong>Final Score:</strong> <span class="score">0.770</span></p>
+        <p><strong>Threshold:</strong> 0.780</p>
+        <p><strong>Active Metrics:</strong> semantic, keyword, nli</p>
+
+        <div class="metric-grid">
+            <div class="metric-item"><strong>Nli Similarity:</strong> 0.998</div>
+            <div class="metric-item"><strong>Semantic Similarity:</strong> 0.777</div>
+            <div class="metric-item"><strong>Keyword Similarity:</strong> 0.000</div>
+            <div class="metric-item"><strong>Keywords Matched:</strong> 0/5</div>
+        </div>
+        <details>
+            <summary>📦 Retrieved Chunks (5 chunks)</summary>
+            <div style="margin-top: 10px;">
+
+                <div class="chunk-item">
+                    <strong>Rank 1</strong> | Chunk ID: 828 |
+                    FAISS: rank #1 (score: 0.0002) |
+                    BM25: rank #0 (score: 0.0000)
+                    <pre
+                        style="margin-top: 5px;">The main disadvantage of the index-sequential file organization is that performance degrades as the file grows, both for index lookups and for sequential scans through the data. Although this degradation can be remedied by reorganization of the file, frequent reorganizations are undesirable. The B + -tree index structure is the most widely used of several index structures that maintain their efficiency despite insertion and deletion of data. A B + -tree index takes the form of a balanced tree in which every path from the root of the tree to a leaf of the tree is of the same length. Each nonleaf node in the tree (other than the root) has between ⌈ n/2 ⌉ and a children, where n is fixed for a particular tree; the root has between 2 and n children. We shall see that the B + -tree structure imposes performance overhead on insertion and deletion and adds space overhead. The overhead is acceptable even for frequently modified files, since the cost of file reorganization is avoided. Furthermore, since nodes may be as much as half empty (if they have the minimum number of children), there is some wasted space. This space overhead, too, is acceptable given the performance benefits of the B + -tree structure.</pre>
+                </div>
+
+                <div class="chunk-item">
+                    <strong>Rank 2</strong> | Chunk ID: 835 |
+                    FAISS: rank #2 (score: 0.0002) |
+                    BM25: rank #31 (score: 32.9633)
+                    <pre
+                        style="margin-top: 5px;">. In a B + tree, each node is large-typically a disk block-and a node can have a large number of pointers. Thus, B + -trees tend to be fat and short, unlike thin and tall binary trees. In a balanced binary tree, the path for a lookup can be of length ⌈log 2 ( N )⌉, where N is the number of records in the file being indexed. With N = 1,000,000 as in the previous example, a balanced binary tree requires around 20 node accesses. If each node were on a different disk block, 20 block reads would be required to process a lookup, in contrast to the four block reads for the B + -tree. The difference is significant with a magnetic disk, since each block read could require a disk arm seek which, together with the block read, takes about 10 milliseconds on a magnetic disk. The difference is not quite as drastic with flash storage, where a read of a 4 kilobyte page takes around 10 to 100 microseconds, but it is still significant. After traversing down to the leaf level, queries on a single value of a unique search key require one more random I/O operation to fetch any matching record. Range queries have an additional cost, after traversing down to the leaf level: all the pointers in the given range must be retrieved. These pointers are in consecutive leaf nodes; thus, if M such pointers are retrieved, at most ⌈ M /( n /2)⌉ + 1 leaf nodes need to be accessed to retrieve the pointers (since each leaf node has at least n /2 pointers, but even two pointers may be split across two pages). T o this cost, we need to add the cost of accessing the actual records. For secondary indices, each such record may be on a different block, which could result in M random I/O operations in the worst case. For clustered indices, these records would be in consecutive blocks, with each block containing multiple records, resulting in a significantly lower cost. Now, let us consider the case of nonunique keys</pre>
+                </div>
+
+                <div class="chunk-item">
+                    <strong>Rank 3</strong> | Chunk ID: 847 |
+                    FAISS: rank #3 (score: 0.0002) |
+                    BM25: rank #0 (score: 0.0000)
+                    <pre
+                        style="margin-top: 5px;">Although insertion and deletion operations on B + -trees are complicated, they require relatively few I/O operations, which is an important benefit since I/O operations are expensive. It can be shown that the number of I/O operations needed in the worst case for an insertion is proportional to log ⌈n/2⌉ ( N ), where n is the maximum number of pointers in a node, and N is the number of records in the file being indexed. The worst-case complexity of the deletion procedure is also proportional to log ⌈n/2⌉ ( N ), provided there are no duplicate values for the search key; we discuss the case of nonunique search keys later in this chapter. In other words, the cost of insertion and deletion operations in terms of I/O operations is proportional to the height of the B + -tree, and is therefore low. It is the speed of operation on B + -trees that makes them a frequently used index structure in database implementations. In practice, operations on B + -trees result in fewer I/O operations than the worst-case bounds. With fanout of 100, and assuming accesses to leaf nodes are uniformly distributed, the parent of a leaf node is 100 times more likely to get accessed than the leaf node. Conversely, with the same fanout, the total number of nonleaf nodes in a B + tree would be just a little more than 1/100th of the number of leaf nodes. As a result, with memory sizes of several gigabytes being common today, for B + -trees that are used frequently, even if the relation is very large it is quite likely that most of the nonleaf nodes are already in the database buffer when they are accessed. Thus, typically only one or two I/O operations are required to perform a lookup. For updates, the probability of a node split occurring is correspondingly very small. Depending on the ordering of inserts, with a fanout of 100, only from 1 in 100 to 1 in 50 insertions will result in a node split, requiring more than one block to be written</pre>
+                </div>
+
+                <div class="chunk-item">
+                    <strong>Rank 4</strong> | Chunk ID: 860 |
+                    FAISS: rank #4 (score: 0.0001) |
+                    BM25: rank #34 (score: 32.1664)
+                    <pre
+                        style="margin-top: 5px;">B-tree indices are similar to B + -tree indices. The primary distinction between the two approaches is that a B-tree eliminates the redundant storage of search-key values. In the B + -tree of Figure 14.9, the search keys 'Einstein', 'Gold', 'Mozart', and 'Srinivasan' appear in nonleaf nodes, in addition to appearing in the leaf nodes. Every search-key value appears in some leaf node; several are repeated in nonleaf nodes. A B-tree allows search-key values to appear only once (if they are unique), unlike a B + -tree, where a value may appear in a nonleaf node, in addition to appearing in a leaf node. Figure 14.23 shows a B-tree that represents the same search keys as the B + -tree of Figure 14.9. Since search keys are not repeated in the B-tree, we may be able to store the index in fewer tree nodes than in the corresponding B + -tree index. However, since search keys that appear in nonleaf nodes appear nowhere else in the B-tree, we are forced to include an additional pointer field for each search key in a nonleaf node. These additional pointers point to either file records or buckets for the associated search key. Figure 14.23 B-tree equivalent of B + -tree in Figure 14.9. It is worth noting that many database system manuals, articles in industry literature, and industry professionals use the term B-tree to refer to the data structure that we call the B + -tree. In fact, it would be fair to say that in current usage, the term B-tree is assumed to be synonymous with B + -tree. However, in this book we use the terms B-tree and B + -tree as they were originally defined, to avoid confusion between the two data structures. A generalized B-tree leaf node appears in Figure 14.24a; a nonleaf node appears in Figure 14.24b. Leaf nodes are the same as in B + -trees. In nonleaf nodes, the pointers P i are the tree pointers that we used also for B + -trees, while the pointers B i are bucket or file-record pointers</pre>
+                </div>
+
+                <div class="chunk-item">
+                    <strong>Rank 5</strong> | Chunk ID: 1625 |
+                    FAISS: rank #5 (score: 0.0001) |
+                    BM25: rank #9 (score: 38.8631)
+                    <pre
+                        style="margin-top: 5px;">We have seen several ordered-indexing schemes and several hashing schemes. We can organize files of records as ordered files by using index-sequential organization or B + -tree organizations. Alternatively, we can organize the files by using hashing. Finally, we can organize them as heap files, where the records are not ordered in any particular way. Each scheme has advantages in certain situations. A database-system implementor could provide many schemes, leaving the final decision of which schemes to use to the database designer. However, such an approach requires the implementor to write more code, adding both to the cost of the system and to the space that the system occupies. Most database systems support B + -trees for indexing diskbased data, and many databases also support B + -tree file - organization. However, most databases do not support hash file organizations or hash indices for disk-based data. One of the important reasons is the fact that many applications benefit from support for range queries. A second reason is the fact that B + -tree indices handle relation size increases gracefully, via a series of node splits, each of which is of low cost, in contrast to the relatively high cost of doubling of the bucket address table, which extendable hashing requires. Another reason for preferring B + -trees is the fact that B + trees give good worst-case bounds for deletion operations with duplicate keys, unlike hash indices. However, hash indices are used for in-memory indexing, if range queries are not common. In particular, they are widely used for creating temporary in-memory indices while processing join operations using the hash-join technique, as we see in Section 15.5.5.</pre>
+                </div>
+
+            </div>
+        </details>
+
+        <h4>Expected Answer:</h4>
+        <pre>A B+ tree is a balanced, multiway search tree where all keys appear in the leaf level linked for range scans, and internal nodes guide search using separators; search descends from root to a leaf in height proportional to log base fan-out, insert splits full nodes to maintain balance, and delete may redistribute or merge nodes to keep occupancy; high fan-out reduces tree height and I/O, making B+ trees efficient on disk and better than binary trees whose height and I/O would be much larger.</pre>
+
+        <h4>Retrieved Answer:</h4>
+        <div class="answer-content">
+            <pre
+                style="white-space: pre-wrap;">A B+ tree organizes keys into its internal nodes so that each key points directly to one or more leaves containing data elements (records). This structure allows efficient searching while minimizing I/O operations. For insertion:
+In summary, when inserting records into a B+ tree index or file organization:
+
+- **Finding the correct child**: Locate the block containing the target record by searching through the B+ tree. - **Inserting between adjacent pointers**: Place the new record between two existing pointers in the same leaf node. - **Recursively reorganizing if necessary**: If space isn't available, insert the new record as part of a larger structure (splitting). - **Handling splits**:
+  - When a record matches an existing value: Use `insert_in_leaf` and `parent(N)` functions to handle it directly. - For inserts that cause splits: Recursively move up the tree until either no further splits occur or a new root is created. The process involves determining where insertion should happen based on the current state of the B+ tree nodes. This ensures efficient storage and retrieval while maintaining order among entries within each node. [UNSUPPORTED] The specific details about how to split nonleaf nodes are not provided in this excerpt; they would require additional context from other sections. For deletion:
+To perform an insert or delete operation on a relation, we first locate the corresponding bucket using hashing based on the search key. If the record being inserted/deleted already exists at this location, it needs to be updated accordingly. For inserts:
+- Find the leaf node where the search-key would fit. - Insert a new entry into the leaf node ensuring order preservation. - Handle any necessary splitting or coalescing operations after inserting the new record. For deletes:
+- Locate the leaf node with the matching search-key value through lookup. - Remove the specific entry from the leaf node. - Adjust subsequent records' positions appropriately when deleting multiple entries simultaneously. In summary, both insertions and deletions require updating the index nodes by either adding/removing entries or adjusting their contents to maintain proper ordering and balance within the tree structure. [UNSUPPORTED]
+
+The provided excerpts do not contain direct evidence supporting the unsupported part of your snippet regarding deletion in linked lists versus buckets. Therefore, I cannot support that statement directly from these documents. Please let me know how you'd like to proceed further without contradicting the given context!</pre>
+        </div>
+    </div>
+
+    <div class="test-result passed">
+        <h3>What are functional dependencies and how are they used to achieve BCNF or 3NF through lossless,
+            dependency-preserving decomposition - <span class="score">PASSED</span></h3>
+        <p><strong>Final Score:</strong> <span class="score">0.790</span></p>
+        <p><strong>Threshold:</strong> 0.700</p>
+        <p><strong>Active Metrics:</strong> semantic, keyword, nli</p>
+
+        <div class="metric-grid">
+            <div class="metric-item"><strong>Nli Similarity:</strong> 0.987</div>
+            <div class="metric-item"><strong>Semantic Similarity:</strong> 0.630</div>
+            <div class="metric-item"><strong>Keyword Similarity:</strong> 0.400</div>
+            <div class="metric-item"><strong>Keywords Matched:</strong> 2/5</div>
+        </div>
+        <details>
+            <summary>📦 Retrieved Chunks (5 chunks)</summary>
+            <div style="margin-top: 10px;">
+
+                <div class="chunk-item">
+                    <strong>Rank 1</strong> | Chunk ID: 397 |
+                    FAISS: rank #1 (score: 0.0002) |
+                    BM25: rank #1 (score: 54.6976)
+                    <pre
+                        style="margin-top: 5px;">Of the two normal forms for relational database schemas, 3NF and BCNF there are advantages to 3NF in that we know that it is always possible to obtain a 3NF design without sacrificing losslessness or dependency preservation. Nevertheless, there are disadvantages to 3NF: We may have to use null values to represent some of the possible meaningful relationships among data items, and there is the problem of repetition of information. Our goals of database design with functional dependencies are: 1. BCNF. 2. Losslessness. 3. Dependency preservation. Since it is not always possible to satisfy all three, we may be forced to choose between BCNF and dependency preservation with 3NF. It is worth noting that SQL does not provide a way of specifying functional dependencies, except for the special case of declaring superkeys by using the primary key or unique constraints. It is possible, although a little complicated, to write assertions that enforce a functional dependency (see Practice Exercise 7.9); unfortunately, currently no database system supports the complex assertions that are required to enforce arbitrary functional dependencies, and the assertions would be expensive to test. Thus even if we had a dependency-preserving decomposition, if we use standard SQL we can test efficiently only those functional dependencies whose lefthand side is a key. Although testing functional dependencies may involve a join if the decomposition is not dependency preserving, if the database system supports materialized views, we could in principle reduce the cost by storing the join result as materialized view; however, this approach is feasible only if the database system supports primary key constraints or unique constraints on materialized views</pre>
+                </div>
+
+                <div class="chunk-item">
+                    <strong>Rank 2</strong> | Chunk ID: 390 |
+                    FAISS: rank #2 (score: 0.0002) |
+                    BM25: rank #16 (score: 32.5907)
+                    <pre
+                        style="margin-top: 5px;">A relation schema R is in BCNF with respect to a set F of functional dependencies if, for all functional dependencies in F + of the form α → β, where α ⊆ R and β ⊆ R , at least one of the following holds: - α → β is a trivial functional dependency (i.e., β ⊆ α). - α is a superkey for schema R. A database design is in BCNF if each member of the set of relation schemas that constitutes the design is in BCNF. We have already seen in Section 7.1 an example of a relational schema that is not in BCNF: The functional dependency dept\_name → budget holds on in\_dep, but dept\_name is not a superkey (because a department may have a number of different instructors). In Section 7.1 we saw that the decomposition of in\_dep into instructor and department is a better design. The instructor schema is in BCNF. All of the nontrivial functional dependencies that hold, such as: ID → name, dept\_name, salary include ID on the left side of the arrow, and ID is a superkey (actually, in this case, the primary key) for instructor . (In other words, there is no nontrivial functional dependency with any combination of name, dept\_name, and salary, without ID , on the left side.) Thus, instructor is in BCNF . Similarly, the department schema is in BCNF because all of the nontrivial functional dependencies that hold, such as: dept\_name → building, budget include dept\_name on the left side of the arrow, and dept\_name is a superkey (and the primary key) for department. Thus, department is in BCNF . We now state a general rule for decomposing schemas that are not in BCNF. Let R be a schema that is not in BCNF. Then there is at least one nontrivial functional dependency α → β such that α is not a superkey for R</pre>
+                </div>
+
+                <div class="chunk-item">
+                    <strong>Rank 3</strong> | Chunk ID: 412 |
+                    FAISS: rank #3 (score: 0.0002) |
+                    BM25: rank #19 (score: 30.5660)
+                    <pre
+                        style="margin-top: 5px;">Using the theory of functional dependencies, there is a way to describe dependency preservation that is simpler than the ad hoc approach we used in Section 7.3.1.2. Let F be a set of functional dependencies on a schema R, and let R 1 , R 2 ,..., R n be a decomposition of R . The restriction of F to R t is the set F i of all functional dependencies in F + that include only attributes of R i . Since all functional dependencies in a restriction involve attributes of only one relation schema, it is possible to test such a dependency for satisfaction by checking only one relation. Note that the definition of restriction uses all dependencies in F + , not just those in F . For instance, suppose F = {A → B, B → C }, and we have a decomposition into AC and AB . The restriction of F to AC includes A → C , since A → C is in F + , even though it is not in F . The set of restrictions F 1 , F 2 ,..., F n is the set of dependencies that can be checked efficiently. We now must ask whether testing only the restrictions is sufficient. Let F' = F 1 ∪ F 2 ∪ … ∪ F n . F ' is a set of functional dependencies on schema R , but, in general, F' ≠ F . However, even if F' ≠ F , it may be that F' + = F + . If the latter is true, then every dependency in F is logically implied by F', and, if we verify that F' is satisfied, we have verified that F is satisfied. We say that a decomposition having the property F' + = F + is a dependency-preserving decomposition . Figure 7.10 shows an algorithm for testing dependency preservation. The input is a set D = { R 1 , R 2 ,..., Rn } of decomposed relation schemas, and a set F of functional dependencies. This algorithm is expensive since it requires computation of F + . Instead of applying the algorithm of Figure 7.10, we consider two alternatives</pre>
+                </div>
+
+                <div class="chunk-item">
+                    <strong>Rank 4</strong> | Chunk ID: 395 |
+                    FAISS: rank #4 (score: 0.0002) |
+                    BM25: rank #3 (score: 50.5178)
+                    <pre
+                        style="margin-top: 5px;">BCNF requires that all nontrivial dependencies be of the form α → β, where α is a superkey. Third normal form (3NF) relaxes this constraint slightly by allowing certain nontrivial functional dependencies whose left side is not a superkey. Before we define 3NF, we recall that a candidate key is a minimal superkey-that is, a superkey no proper subset of which is also a superkey. A relation schema R is in third normal form with respect to a set F of functional dependencies if, for all functional dependencies in F + of the form α → β, where α ⊆ R and β ⊆ R , at least one of the following holds: - α → β is a trivial functional dependency. - α is a superkey for R . - Each attribute A in β - α is contained in a candidate key for R . Note that the third condition above does not say that a single candidate key must contain all the attributes in β - α each attribute A in β - α may be contained in a different candidate key. The first two alternatives are the same as the two alternatives in the definition of BCNF . The third alternative in the 3NF definition seems rather unintuitive, and it is not obvious why it is useful. It represents, in some sense, a minimal relaxation of the BCNF conditions that helps ensure that every schema has a dependency-preserving decomposition into 3NF. Its purpose will become more clear later, when we study decomposition into 3NF. Observe that any schema that satisfies BCNF also satisfies 3NF, since each of its functional dependencies would satisfy one of the first two alternatives. BCNF is therefore a more restrictive normal form than is 3NF. The definition of 3NF allows certain functional dependencies that are not allowed in BCNF. A dependency α → β that satisfies only the third alternative of the 3NF definition is not allowed in BCNF but is allowed in 3NF</pre>
+                </div>
+
+                <div class="chunk-item">
+                    <strong>Rank 5</strong> | Chunk ID: 386 |
+                    FAISS: rank #5 (score: 0.0002) |
+                    BM25: rank #8 (score: 41.3214)
+                    <pre
+                        style="margin-top: 5px;">We can use functional dependencies to show when certain decompositions are lossless. Let R , R 1 , R 2 , and F be as above. R 1 and R 2 form a lossless decomposition of R if at least one of the following functional dependencies is in F + : - R 1 ∩ R 2 → R 1 - R 1 ∩ R 2 → R 2 In other words, if R 1 ∩ R 2 forms a superkey for either R 1 or R 2 , the decomposition of R is a lossless decomposition. We can use attribute closure to test efficiently for superkeys, as we have seen earlier. To illustrate this, consider the schema in\_dep ( ID , name, salary, dept\_name, building, budget ) that we decomposed in Section 7.1 into the instructor and department schemas: instructor ( ID , name, dept\_name, salary ) department ( dept\_name, building, budget ) Consider the intersection of these two schemas, which is dept\_name. We see that because dept\_name → dept\_name, building, budget, the lossless-decomposition rule is satisfied. For the general case of decomposition of a schema into multiple schemas at once, the test for lossless decomposition is more complicated. See the Further Reading section at the end of this chapter for references on this topic. While the test for binary decomposition is clearly a sufficient condition for lossless decomposition, it is a necessary condition only if all constraints are functional dependencies. We shall see other types of constraints later (in particular, a type of constraint called multivalued dependencies discussed in Section 7.6.1) that can ensure that a decomposition is lossless even if no functional dependencies are present. Suppose we decompose a relation schema r(R ) into r 1 ( R 1 ) and r 2 ( R 2 ), where R 1 ∩ R 2 → R 1 . 5 Then the following SQL constraints must be imposed on the decomposed schema to ensure their contents are consistent with the original schema. R 1 ∩ R 2 is the primary key of r 1 . This constraint enforces the functional dependency. R 1 ∩ R 2 is a foreign key from r 2 referencing r 1</pre>
+                </div>
+
+            </div>
+        </details>
+
+        <h4>Expected Answer:</h4>
+        <pre>A functional dependency X -> Y asserts that tuples agreeing on X must agree on Y; BCNF requires every nontrivial FD have a superkey on the left, while 3NF relaxes this by allowing attributes on the right that are part of a key; normalization decomposes a relation into smaller ones such that the join is lossless (typically ensured by a common key/FD condition) and preferably preserves dependencies so that constraints can be enforced without recomputation; BCNF eliminates redundancy more aggressively but may not preserve all FDs, whereas 3NF guarantees dependency preservation with minimal redundancy.</pre>
+
+        <h4>Retrieved Answer:</h4>
+        <div class="answer-content">
+            <pre
+                style="white-space: pre-wrap;">Functional dependencies describe relationships between sets of attributes within a relational database schema. They allow us to determine whether a given set of relations satisfies specific normal forms like Boyce-Codd Normal Form (BCNF) or Third Normal Form (3NF). To achieve BCNF or 3NF using lossless, dependency-preserving decomposition:
+
+1. **Identify Nontrivial Dependencies**: For each nontrivial functional dependency α → β where α ⊆ R and β ⊆ R, check if it meets any of these conditions:
+   - It's trivial. - Its left side (α) is not a superkey. 2. **Decompose Schema**: Decompose the original schema into smaller relation schemas such that each decomposed schema has at least one attribute as its key (superkey). This ensures that no further transformations can be made without losing information. 3. **Check Dependency Preservation**:
+   - Ensure all nontrivial dependencies remain in their respective decomposed schemas after the transformation. - Verify that there are no new dependencies introduced during the decomposition process. 4. **Lossless-Dependency Preserving Decomposition**:
+   - A decomposition is considered lossless-dep preserving if for every pair of tables \(R_1\) and \(R_2\), either:
+     - The intersection \(R_1 \cap R_2\) maps to \(R_1\). - Or the intersection \(R_1 \cap R_2\) maps to \(R_2\). By ensuring that the decomposition maintains both dependency preservation and minimality through candidate keys, we achieve BCNF or 3NF while avoiding redundancy and maintaining data integrity.</pre>
+        </div>
+    </div>
+
+    <div class="test-result passed">
+        <h3>What isolation guarantees does SQL provide by default, what anomalies can occur at weaker levels, and how do
+            stricter levels prevent them - <span class="score">PASSED</span></h3>
+        <p><strong>Final Score:</strong> <span class="score">0.807</span></p>
+        <p><strong>Threshold:</strong> 0.700</p>
+        <p><strong>Active Metrics:</strong> semantic, keyword, nli</p>
+
+        <div class="metric-grid">
+            <div class="metric-item"><strong>Nli Similarity:</strong> 0.954</div>
+            <div class="metric-item"><strong>Semantic Similarity:</strong> 0.772</div>
+            <div class="metric-item"><strong>Keyword Similarity:</strong> 0.375</div>
+            <div class="metric-item"><strong>Keywords Matched:</strong> 3/8</div>
+        </div>
+        <details>
+            <summary>📦 Retrieved Chunks (5 chunks)</summary>
+            <div style="margin-top: 10px;">
+
+                <div class="chunk-item">
+                    <strong>Rank 1</strong> | Chunk ID: 1086 |
+                    FAISS: rank #1 (score: 0.0001) |
+                    BM25: rank #4 (score: 31.4776)
+                    <pre
+                        style="margin-top: 5px;">Serializability is a useful concept because it allows programmers to ignore issues related to concurrency when they code transactions. If every transaction has the property that it maintains database consistency if executed alone, then serializability ensures that concurrent executions maintain consistency. However, the protocols required to ensure serializability may allow too little concurrency for certain applications. In these cases, weaker levels of consistency are used. The use of weaker levels of consistency places additional burdens on programmers for ensuring database correctness. The SQL standard also allows a transaction to specify that it may be executed in such a way that it becomes nonserializable with respect to other transactions. For instance, a transaction may operate at the isolation level of read uncommitted , which permits the transaction to read a data item even if it was written by a transaction that has not been committed. SQL provides such features for the benefit of long transactions whose results do not need to be precise. If these transactions were to execute in a serializable fashion, they could interfere with other transactions, causing the others' execution to be delayed. The isolation levels specified by the SQL standard are as follows: - Serializable usually ensures serializable execution. However, as we shall explain shortly, some database systems implement this isolation level in a manner that may, in certain cases, allow nonserializable executions. - Repeatable read allows only committed data to be read and further requires that, between two reads of a data item by a transaction, no other transaction is allowed to update it. However, the transaction may not be serializable with respect to other transactions. For instance, when it is searching for data satisfying some conditions, a transaction may find some of the data inserted by a committed transaction, but may not find other data inserted by the same transaction</pre>
+                </div>
+
+                <div class="chunk-item">
+                    <strong>Rank 2</strong> | Chunk ID: 1087 |
+                    FAISS: rank #2 (score: 0.0001) |
+                    BM25: rank #2 (score: 36.1642)
+                    <pre
+                        style="margin-top: 5px;">. - Read committed allows only committed data to be read, but does not require repeatable reads. For instance, between two reads of a data item by the transaction, another transaction may have updated the data item and committed. - Read uncommitted allows uncommitted data to be read. It is the lowest isolation level allowed by SQL. All the isolation levels above additionally disallow dirty writes , that is, they disallow writes to a data item that has already been written by another transaction that has not yet committed or aborted. Many database systems run, by default, at the readcommitted isolation level. In SQL, it is possible to set the isolation level explicitly, rather than accepting the system's default setting. For example, the statement set transaction isolation level serializable syntax is supported by Oracle, PostgreSQL, and SQL Server; sets the isolation level to serializable; any of the other isolation levels may be specified instead. The preceding Oracle uses the syntax alter session set isolation\_level = serializable while DB2 uses the syntax ' change isolation level ' with its own abbreviations for isolation levels. Changing of the isolation level must be done as the first statement of a transaction. By default, most databases commit individual statements as soon as they are executed. Such automatic commit of individual statements must be turned off to allow multiple statements to run as a single transaction. The command start transaction ensures that subsequent SQL statements, until a subsequent commit or rollback , are executed as a single transaction. As expected, the commit operation commits the preceding SQL statements, while rollback rolls back the preceding SQL statements. (SQL Server uses begin transaction in place of start transaction , while Oracle and PostgreSQL treat begin as identical to start transaction .) APIs such as JDBC and ODBC provide functions to turn off automatic commit</pre>
+                </div>
+
+                <div class="chunk-item">
+                    <strong>Rank 3</strong> | Chunk ID: 1655 |
+                    FAISS: rank #3 (score: 0.0001) |
+                    BM25: rank #0 (score: 0.0000)
+                    <pre
+                        style="margin-top: 5px;">Concurrent execution of different types of transactions can sometimes lead to poor performance because of contention on locks. We first consider the case of read-write contention, which is more common, and then consider the case of write-write contention. As an example of read-write contention , consider the following situation on a banking database. During the day, numerous small update transactions are executed almost continuously. Suppose that a large query that computes statistics on branches is run at the same time. If the query performs a scan on a relation, it may block out all updates on the relation while it runs, and that can have a disastrous effect on the performance of the system. Several database systems-Oracle, PostgreSQL, and Microsoft SQL Server, for example-support snapshot isolation, whereby queries are executed on a snapshot of the data, and updates can go on concurrently. (Snapshot isolation is described in detail in Section 18.8.) Snapshot isolation should be used, if available, for large queries, to avoid lock contention in the above situation. In SQL Server, executing the statement ## set transaction isolation level snapshot at the beginning of a transaction results in snapshot isolation being used for that transaction. In Oracle and PostgreSQL, using the keyword serializable in place of the keyword snapshot in the above command has the same effect, since these systems actually use snapshot isolation (serializable snapshot isolation, in the case of PostgreSQL version 9.1 onwards) when the isolation level is set to serializable. If snapshot isolation is not available, an alternative option is to execute large queries at times when updates are few or nonexistent. However, for databases supporting web sites, there may be no such quiet period for updates</pre>
+                </div>
+
+                <div class="chunk-item">
+                    <strong>Rank 4</strong> | Chunk ID: 1057 |
+                    FAISS: rank #4 (score: 0.0001) |
+                    BM25: rank #0 (score: 0.0000)
+                    <pre
+                        style="margin-top: 5px;">A transaction is a unit of program execution that accesses and possibly updates various data items. Usually, a transaction is initiated by a user program written in a highlevel data-manipulation language (typically SQL), or programming language (e.g., C++ or Java), with embedded database accesses in JDBC or ODBC. A transaction is delimited by statements (or function calls) of the form begin transaction and end transaction . The transaction consists of all operations executed between the begin transaction and end transaction . This collection of steps must appear to the user as a single, indivisible unit. Since a transaction is indivisible, it either executes in its entirety or not at all. Thus, if a transaction begins to execute but fails for whatever reason, any changes to the database that the transaction may have made must be undone. This requirement holds regardless of whether the transaction itself failed (e.g., if it divided by zero), the operating system crashed, or the computer itself stopped operating. As we shall see, ensuring that this requirement is met is difficult since some changes to the database may still be stored only in the main-memory variables of the transaction, while others may have been written to the database and stored on disk. This 'all-ornone' property is referred to as atomicity . Furthermore, since a transaction is a single unit, its actions cannot appear to be separated by other database operations not part of the transaction. While we wish to present this user-level impression of transactions, we know that reality is quite different. Even a single SQL statement involves many separate accesses to the database, and a transaction may consist of several SQL statements. Therefore, the database system must take special actions to ensure that transactions operate properly without interference from concurrently executing database statements. This property is referred to as isolation</pre>
+                </div>
+
+                <div class="chunk-item">
+                    <strong>Rank 5</strong> | Chunk ID: 1160 |
+                    FAISS: rank #5 (score: 0.0001) |
+                    BM25: rank #50 (score: 18.3967)
+                    <pre
+                        style="margin-top: 5px;">Snapshot isolation is attractive in practice because transactions that read a lot of data (typically for data analysis) do not interfere with shorter update transactions (typically used for transaction processing). With two-phase locking, such long read-only transactions would block update transactions for long periods of time, which is often unacceptable. It is worth noting that integrity constraints that are enforced by the database, such as primary-key and foreignkey constraints, cannot be checked on a snapshot; otherwise it would be possible for two concurrent transactions to insert two tuples with the same primary key value, or for a transaction to insert a foreign key value that is concurrently deleted from the referenced table. This problem is handled by checking these constraints on the current state of the database, rather than on the snapshot, as part of validation at the time of commit. Even with the above fix, there is still a serious problem with the snapshot isolation scheme as we have presented it and as it is implemented in practice: snapshot isolation does not ensure serializability! Next we give examples of possible nonserializable executions under snapshot isolation. We then outline the serializable snapshot isolation technique that is supported by some databases, which extends the snapshot isolation technique to ensure serializability. Snapshot isolation implementations that do not support serializable snapshot isolation often support SQL extensions that allow the programmer to ensure serializability even with snapshot isolation; we study these extensions at the end of the section. - Consider the transaction schedule shown in Figure 18.20. T wo concurrent transactions T i and T j both read data items A and B. T i sets A = B and writes A , while T j sets B = A and writes B . Since T i and T j are concurrent, under snapshot isolation neither transaction sees the update by the other in its snapshot</pre>
+                </div>
+
+            </div>
+        </details>
+
+        <h4>Expected Answer:</h4>
+        <pre>SQL's serializable level aims for schedules equivalent to some serial execution and prevents phenomena like dirty reads, nonrepeatable reads, and phantoms; weaker levels like read committed prevent dirty reads but allow nonrepeatable reads and phantoms, while repeatable read prevents nonrepeatable reads but may still allow phantoms; strict two-phase locking or predicate locking/index locking can enforce serializability by holding appropriate locks until commit, eliminating these anomalies.</pre>
+
+        <h4>Retrieved Answer:</h4>
+        <div class="answer-content">
+            <pre
+                style="white-space: pre-wrap;">SQL provides three different types of isolation guarantees:
+
+1. Read committed - This ensures that all changes made to the database are visible only after they have been committed. 2. Repeatable reads - This allows users to repeat an operation multiple times within a single session without seeing any differences between those operations. 3. Serializable - This provides the highest level of consistency, ensuring that concurrent executions maintain consistency. Anomalies that can occur at weaker isolation levels include:
+
+- Dirty writes: Changes made during one transaction may be visible to other transactions before they commit. -Non-repeatable reads occur when a transaction sees different data versions between consecutive executions within its own scope. - **Serializable** ensures consistent results across multiple instances of the same transaction but may not guarantee consistency with other transactions due to potential nonserializable schedules. - **Repeatable read** guarantees consistent results for each instance of the transaction while preventing updates made by another transaction during the read operation. - **Read committed** restricts reading changes that have been committed or rolled back since the last query. - **Read uncommitted** permits reading any change regardless of whether it has been committed. In Oracle versions till at least Oracle 12c (to the best of our knowledge), and in PostgreSQL versions prior to 9.1, the **snapshot isolation level** actually implements snapshot concurrency control rather than strict serializability. To ensure database correctness under weaker consistency levels:
+- Developers can use `for update` clauses appended to select queries to treat read operations as if they were updated. - Formal methods exist to analyze risk of nonserializable execution and introduce necessary conflicts using these techniques. Weak levels of consistency are useful in applications where precise results aren't critical, such as long-running transactions whose outcomes don't need absolute precision. For more detailed analysis, consider formal methods available online to determine:The same query results change when executed again within a single session. Excerpts:
+- Read committed ensures that data changes made between reads remain unchanged. - Read uncommitted allows uncommitted data to be read but disallows dirty writes. - Serializability ensures consistency across multiple transactions without allowing too much concurrency or violating database integrity rules. Serializability guarantees that concurrent executions maintain database consistency as long as each transaction maintains its own database state independently. If every transaction follows these rules, it prevents any form of nonserializable behavior due to concurrent updates. However, weaker forms of consistency may still allow certain schedules to run concurrently while not strictly adhering to serializability principles. For example:
+
+- **Read Uncommitted**: This level does not require strict isolation; it only prohibits writing over existing values (dirty write). It can lead to inconsistent states where one transaction sees another's partially updated data before they are fully committed. - **Repeatable Read**: Ensures that during two consecutive reads from the same data item, no other transaction modifies it in-between. However, this doesn't prevent all types of conflicts such as those involving dirty writes or partial updates. In Oracle versions till at least 12c and PostgreSQL prior to 9.1, the `Serializable` isolation level -Lost updates occur when another transaction modifies a database item between reads performed by a single transaction. This violates the concept of atomicity, where each operation must complete successfully or fail entirely. In Oracle versions till at least Oracle 12c (to the best of our knowledge), PostgreSQL versions prior to 9.1, and other systems with similar implementations, the `Serializable` isolation level provides snapshot isolation instead of strict serializability. This means that even though the system claims it implements `Serializable`, certain schedules may not be serializable due to concurrency issues. To mitigate these problems, developers often use weaker consistency models like `Repeatable Read`. With `Repeatable Read`, a transaction sees its own data as consistent across multiple executions but cannot guarantee that concurrent operations will always remain consistent. The key points about lost updates:
+- Lost updates violate the concept of atomicity. - They can happen because another transaction modified an object while your transaction was reading it. - The `Serializable` isolation level is designed to prevent such violations but some systems implement this in ways that allow nonserializable execution under specific conditions. For example, if you have two transactions: one searches for items satisfying certain criteria and finds them; then commits without updating any records. Another transaction inserts new items into those same:Serializability ensures database consistency when every transaction maintains its own data integrity. However, weaker levels of consistency may allow too little concurrency or interfere with other transactions' execution. SQL provides features at different isolation levels:
+- Serializable usually ensures serializable execution but requires additional measures like for update clauses for certain databases. In Oracle versions till at least Oracle 12c, PostgreSQL prior to 9.1, and many default settings, the serializable level implements snapshot isolation. Forcing snapshot isolation involves appending "for update" clauses to select queries, which treats read-only operations as updates during concurrency control. Weak levels of consistency include read uncommitted, where dirty writes are allowed without requiring explicit commit or rollback actions. These weak levels can lead to nonserializable executions under specific conditions, especially in large transactions that require precise results. The use of these isolation levels places additional burdens on programmers ensuring database correctness. To avoid nonserializable executions, developers must carefully plan their application's behavior based on the chosen isolation level. Using formal methods helps determine if a given mix of transactions runs risks of nonserializable execution and introduces conflicts (e.g., using for update) to ensure serializability. This analysis is possible only if all transactions belong to a predetermined set; otherwise, ad hoc applications,Serializability ensures database consistency when every transaction maintains its own data integrity independently. The protocols required for serializability may allow too little concurrency for certain applications, leading to loss of information or additional burdens on programmers. - **Serializable**: Ensures serializable execution but requires knowledge about other transactions' states. - **Repeatable Read**: Requires committed data between reads; disallows dirty writes. - **Read Committed**: Disallows dirty writes but does not require repeatable reads. - **Read Uncommitted**: Allows uncommitted data reading with potential inconsistency issues. SQL provides features like `set transaction isolation level` and explicit setting (`alter session`) to control these levels. Default settings vary across databases (e.g., Oracle's default is snapshot isolation). In Oracle versions till at least Oracle 12c and PostgreSQL prior to 9.1, the `serializable` isolation level implements snapshot isolation, allowing some nonserializable schedules under this level. Appending a `for update` clause can guard against snapshot anomalies if needed. Weak levels of consistency in practice include:
+- **Serializable** ensuring consistent results despite concurrent operations. - **Repeatable Read** maintaining data integrity without dirty writes. - **Read Committed** avoiding inconsistent read behavior while still requiring commitment. - **Read. Stricter isolation levels help prevent these anomalies by enforcing rules on concurrency control mechanisms like locks. For example:
+- In serializability, each transaction must execute in a specific order (serially), preventing conflicts from happening concurrently. - With snapshot isolation, no two transactions should see inconsistent states; this prevents dirty writes and lost updates. By providing stronger isolation guarantees through higher-level isolation modes, SQL helps ensure data integrity while allowing for efficient execution of concurrent transactions.</pre>
+        </div>
+    </div>
+
+    <div class="test-result passed">
+        <h3>Explain primary keys and foreign keys - <span class="score">PASSED</span></h3>
+        <p><strong>Final Score:</strong> <span class="score">0.887</span></p>
+        <p><strong>Threshold:</strong> 0.720</p>
+        <p><strong>Active Metrics:</strong> semantic, keyword, nli</p>
+
+        <div class="metric-grid">
+            <div class="metric-item"><strong>Nli Similarity:</strong> 0.998</div>
+            <div class="metric-item"><strong>Semantic Similarity:</strong> 0.897</div>
+            <div class="metric-item"><strong>Keyword Similarity:</strong> 0.500</div>
+            <div class="metric-item"><strong>Keywords Matched:</strong> 3/6</div>
+        </div>
+        <details>
+            <summary>📦 Retrieved Chunks (5 chunks)</summary>
+            <div style="margin-top: 10px;">
+
+                <div class="chunk-item">
+                    <strong>Rank 1</strong> | Chunk ID: 56 |
+                    FAISS: rank #1 (score: 0.0001) |
+                    BM25: rank #27 (score: 13.2110)
+                    <pre
+                        style="margin-top: 5px;">. Although the attributes ID and name together can distinguish instructor tuples, their combination, { ID , name }, does not form a candidate key, since the attribute ID alone is a candidate key. We shall use the term primary key to denote a candidate key that is chosen by the database designer as the principal means of identifying tuples within a relation. A key (whether primary, candidate, or super) is a property of the entire relation, rather than of the individual tuples. Any two individual tuples in the relation are prohibited from having the same value on the key attributes at the same time. The designation of a key represents a constraint in the real-world enterprise being modeled. Thus, primary keys are also referred to as primary key constraints . It is customary to list the primary key attributes of a relation schema before the other attributes; for example, the dept\_name attribute of dept\_name is listed first, since it is the primary key. Primary key attributes are also underlined. Consider the classroom relation: classroom (building, room\_number, capacity ) Here the primary key consists of two attributes, building and room\_number, which are underlined to indicate they are part of the primary key. Neither attribute by itself can uniquely identify a classroom, although together they uniquely identify a classroom. Also consider the timeslot relation: timeslot (time\_slot\_id, day, start\_time, end\_time ) Each section has an associated time\_slot\_id. The timeslot relation provides information on which days of the week, and at what times, a particular time\_slot\_id meets. For example, time\_slot\_id 'A' may meet from 8.00 AM to 8.50 AM on Mondays, Wednesdays, and Fridays. It is possible for a time slot to have multiple sessions within a single day, at different times, so the time-slot\_id and day together do not uniquely identify the tuple</pre>
+                </div>
+
+                <div class="chunk-item">
+                    <strong>Rank 2</strong> | Chunk ID: 314 |
+                    FAISS: rank #2 (score: 0.0001) |
+                    BM25: rank #14 (score: 15.0385)
+                    <pre
+                        style="margin-top: 5px;">Conceptually, individual entities are distinct; from a database perspective, however, the differences among them must be expressed in terms of their attributes. Therefore, the values of the attribute values of an entity must be such that they can uniquely identify the entity. In other words, no two entities in an entity set are allowed to have exactly the same value for all attributes. The notion of a key for a relation schema, as defined in Section 2.3, applies directly to entity sets. That is, a key for an entity is a set of attributes that suffice to distinguish entities from each other. The concepts of superkey, candidate key, and primary key are applicable to entity sets just as they are applicable to relation schemas. Keys also help to identify relationships uniquely, and thus distinguish relationships from each other. Next, we define the corresponding notions of keys for relationship sets.</pre>
+                </div>
+
+                <div class="chunk-item">
+                    <strong>Rank 3</strong> | Chunk ID: 58 |
+                    FAISS: rank #3 (score: 0.0001) |
+                    BM25: rank #31 (score: 12.3420)
+                    <pre
+                        style="margin-top: 5px;">. Next, we consider another type of constraint on the contents of relations, called foreign-key constraints. Consider the attribute dept\_name of the instructor relation. It would not make sense for a tuple in instructor to have a value for dept\_name that does not correspond to a department in the dept\_name relation. Thus, in any database instance, given any tuple, say t a , from the instructor relation, there must be some tuple, say t b , in the dept\_name relation such that the value of the dept\_name attribute of t a is the same as the value of the primary key, dept\_name , of t b . A foreign-key constraint from attribute(s) A of relation r 1 to the primary-key B of relation r 2 states that on any database instance, the value of A for each tuple in r 1 must also be the value of B for some tuple in r 2 . Attribute set A is called a foreign key from r 1 , referencing r 2 . The relation r 1 is also called the referencing relation of the foreign-key constraint, and r 2 is called the referenced relation . For example, the attribute dept\_name in instructor is a foreign key from instructor, referencing dept\_name ; note that dept\_name is the primary key of dept\_name . Similarly, the attributes building and room\_number of the section relation together form a foreign key referencing the classroom relation. Note that in a foreign-key constraint, the referenced attribute(s) must be the primary key of the referenced relation. The more general case, a referential-integrity constraint, relaxes the requirement that the referenced attributes form the primary key of the referenced relation. As an example, consider the values in the time\_slot\_id attribute of the section relation. We require that these values must exist in the time\_slot\_id attribute of the time slot relation. Such a requirement is an example of a referential integrity constraint</pre>
+                </div>
+
+                <div class="chunk-item">
+                    <strong>Rank 4</strong> | Chunk ID: 315 |
+                    FAISS: rank #4 (score: 0.0001) |
+                    BM25: rank #11 (score: 15.8571)
+                    <pre
+                        style="margin-top: 5px;">We need a mechanism to distinguish among the various relationships of a relationship set. Let R be a relationship set involving entity sets E 1 , E 2 , …, E n . Let primary-key ( E i ) denote the set of attributes that forms the primary key for entity set E i . Assume for now that the attribute names of all primary keys are unique. The composition of the primary key for a relationship set depends on the set of attributes associated with the relationship set R . If the relationship set R has no attributes associated with it, then the set of attributes ``` primary-key ( E 1 ) ∪ primary-key ( E 2 ) ∪ ⋯ ∪ primary-key ( E n ) ``` describes an individual relationship in set R . If the relationship set R has attributes a 1 , a 2 , …, a m associated with it, then the set of attributes primary-key ( E 1 ) ∪ primary-key ( E 2 ) ∪ ⋯ ∪ primary-key ( E n ) ∪{ a 1 , a 2 , …, a m } describes an individual relationship in set R . If the attribute names of primary keys are not unique across entity sets, the attributes are renamed to distinguish them; the name of the entity set combined with the name of the attribute would form a unique name. If an entity set participates more than once in a relationship set (as in the prereq relationship in Section 6.2.2), the role name is used instead of the name of the entity set, to form a unique attribute name. Recall that a relationship set is a set of relationship instances, and each instance is uniquely identified by the entities that participate in it. Thus, in both of the preceding cases, the set of attributes primary-key ( E 1 ) ∪ primary-key ( E 2 ) ∪ ⋯ ∪ primary-key ( E n ) forms a superkey for the relationship set. The choice of the primary key for a binary relationship set depends on the mapping cardinality of the relationship set. For many-to-many relationships, the preceding union of the primary keys is a minimal superkey and is chosen as the primary key</pre>
+                </div>
+
+                <div class="chunk-item">
+                    <strong>Rank 5</strong> | Chunk ID: 83 |
+                    FAISS: rank #5 (score: 0.0001) |
+                    BM25: rank #33 (score: 12.2585)
+                    <pre
+                        style="margin-top: 5px;">. Although the primary-key specification is optional, it is generally a good idea to specify a primary key for each relation. - foreign key ( A k 1 , A k 2 ,..., A k n ) references S : The foreign key specification says that the values of attributes ( A k 1 , A k 2 ,..., A k n ) for any tuple in the relation must correspond to values of the primary key attributes of some tuple in relation s. Figure 3.1 presents a partial SQL DDL definition of the university database we use in the text. The definition of the course table has a declaration ' foreign key ( dept\_name ) references department'. This foreign-key declaration specifies that for each course tuple, the department name specified in the tuple must exist in the primary key attribute ( dept\_name ) of the department relation. Without this constraint, it is possible for a course to specify a nonexistent department name. Figure 3.1 also shows foreign-key constraints on tables section, instructor and teaches. Some database systems, including MySQL, require an alternative syntax, ' foreign key ( dept\_name ) references department(dept\_name)', where the referenced attributes in the referenced table are listed explicitly. - not null : The not null constraint on an attribute specifies that the null value is not allowed for that attribute; in other words, the constraint excludes the null value from the domain of that attribute. For example, in Figure 3.1, the not null constraint on the name attribute of the instructor relation ensures that the name of an instructor cannot be null. More details on the foreign-key constraint, as well as on other integrity constraints that the create table command may include, are provided later, in Section 4.4. SQL prevents any update to the database that violates an integrity constraint</pre>
+                </div>
+
+            </div>
+        </details>
+
+        <h4>Expected Answer:</h4>
+        <pre>A primary key is a set of one or more attributes that uniquely identifies each tuple in a relation, chosen from candidate keys which are minimal superkeys; primary key attributes are underlined in schema diagrams and cannot have null values. A foreign key is a set of attributes in one relation (the referencing relation) that references the primary key of another relation (the referenced relation), establishing a referential integrity constraint that requires values in the foreign key to match values in the referenced primary key, thereby linking related data across tables.</pre>
+
+        <h4>Retrieved Answer:</h4>
+        <div class="answer-content">
+            <pre
+                style="white-space: pre-wrap;">A primary key is an attribute or combination of attributes that uniquely identifies every record in a table. It serves as the "primary" means of identifying records within a relational database. Foreign keys are used to establish relationships between tables. They allow you to link data from one table to another by specifying which columns should match up with corresponding columns in other tables. This helps maintain referential integrity across multiple tables. <<<END_ANSWER>>></pre>
+        </div>
+    </div>
+
+    <div class="test-result passed">
+        <h3>What is a database schema - <span class="score">PASSED</span></h3>
+        <p><strong>Final Score:</strong> <span class="score">0.879</span></p>
+        <p><strong>Threshold:</strong> 0.700</p>
+        <p><strong>Active Metrics:</strong> semantic, keyword, nli</p>
+
+        <div class="metric-grid">
+            <div class="metric-item"><strong>Nli Similarity:</strong> 0.995</div>
+            <div class="metric-item"><strong>Semantic Similarity:</strong> 0.916</div>
+            <div class="metric-item"><strong>Keyword Similarity:</strong> 0.429</div>
+            <div class="metric-item"><strong>Keywords Matched:</strong> 3/7</div>
+        </div>
+        <details>
+            <summary>📦 Retrieved Chunks (5 chunks)</summary>
+            <div style="margin-top: 10px;">
+
+                <div class="chunk-item">
+                    <strong>Rank 1</strong> | Chunk ID: 18 |
+                    FAISS: rank #1 (score: 0.0001) |
+                    BM25: rank #10 (score: 11.5877)
+                    <pre
+                        style="margin-top: 5px;">Databases change over time as information is inserted and deleted. The collection of information stored in the database at a particular moment is called an instance of the database. The overall design of the database is called the database schema . The concept of database schemas and instances can be understood by analogy to a program written in a programming language. A database schema corresponds to the variable declarations (along with associated type definitions) in a program. Each variable has a particular value at a given instant. The values of the variables in a program at a point in time correspond to an instance of a database schema. Database systems have several schemas, partitioned according to the levels of abstraction. The physical schema describes the database design at the physical level, while the logical schema describes the database design at the logical level. A database may also have several schemas at the view level, sometimes called subschemas , that describe different views of the database. Of these, the logical schema is by far the most important in terms of its effect on application programs, since programmers construct applications by using the logical schema. The physical schema is hidden beneath the logical schema and can usually be changed easily without affecting application programs. Application programs are said to exhibit physical data independence if they do not depend on the physical schema and thus need not be rewritten if the physical schema changes. We also note that it is possible to create schemas that have problems, such as unnecessarily duplicated information. For example, suppose we store the department budget as an attribute of the instructor record. Then, whenever the value of the budget for a department (say the Physics department) changes, that change must be reflected in the records of all instructors associated with the department</pre>
+                </div>
+
+                <div class="chunk-item">
+                    <strong>Rank 2</strong> | Chunk ID: 52 |
+                    FAISS: rank #2 (score: 0.0001) |
+                    BM25: rank #9 (score: 11.7032)
+                    <pre
+                        style="margin-top: 5px;">When we talk about a database, we must differentiate between the database schema , which is the logical design of the database, and the database instance , which is a snapshot of the data in the database at a given instant in time. The concept of a relation corresponds to the programminglanguage notion of a variable, while the concept of a relation schema corresponds to the programming-language notion of type definition. In general, a relation schema consists of a list of attributes and their corresponding domains. We shall not be concerned about the precise definition of the domain of each attribute until we discuss the SQL language in Chapter 3. The concept of a relation instance corresponds to the programming-language notion of a value of a variable. The value of a given variable may change with time; similarly the contents of a relation instance may change with time as the relation is updated. In contrast, the schema of a relation does not generally change. Although it is important to know the difference between a relation schema and a relation instance, we often use the same name, such as instructor, to refer to both the schema and the instance. Where required, we explicitly refer to the schema or to the instance, for example 'the instructor schema," or 'an instance of the instructor relation. ' However, where it is clear whether we mean the schema or the instance, we simply use the relation name. Consider the deptartment relation of Figure 2.5. The schema ## for that relation is: Figure 2.5 The department relation. ## deptartment (dept\_name, building, budget ) Note that the attribute dept\_name appears in both the instructor schema and the department schema. This duplication is not a coincidence. Rather, using common attributes in relation schemas is one way of relating tuples of distinct relations. For example, suppose we wish to find the information about all the instructors who work in the Watson building</pre>
+                </div>
+
+                <div class="chunk-item">
+                    <strong>Rank 3</strong> | Chunk ID: 28 |
+                    FAISS: rank #3 (score: 0.0001) |
+                    BM25: rank #47 (score: 10.1830)
+                    <pre
+                        style="margin-top: 5px;">Database systems are designed to manage large bodies of information. These large bodies of information do not exist in isolation. They are part of the operation of some enterprise whose end product may be information from the database or may be some device or service for which the database plays only a supporting role. Database design mainly involves the design of the database schema. The design of a complete database application environment that meets the needs of the enterprise being modeled requires attention to a broader set of issues. In this text, we focus on the writing of database queries and the design of database schemas, but discuss application design later, in Chapter 9. A high-level data model provides the database designer with a conceptual framework in which to specify the data requirements of the database users and how the database will be structured to fulfill these requirements. The initial phase of database design, then, is to characterize fully the data needs of the prospective database users. The database designer needs to interact extensively with domain experts and users to carry out this task. The outcome of this phase is a specification of user requirements. Next, the designer chooses a data model, and by applying the concepts of the chosen data model, translates these requirements into a conceptual schema of the database. The schema developed at this conceptual-design phase provides a detailed overview of the enterprise. The designer reviews the schema to confirm that all data requirements are indeed satisfied and are not in conflict with one another. The designer can also examine the design to remove any redundant features. The focus at this point is on describing the data and their relationships, rather than on specifying physical storage details</pre>
+                </div>
+
+                <div class="chunk-item">
+                    <strong>Rank 4</strong> | Chunk ID: 79 |
+                    FAISS: rank #4 (score: 0.0001) |
+                    BM25: rank #0 (score: 0.0000)
+                    <pre
+                        style="margin-top: 5px;">The set of relations in a database are specified using a datadefinition language (DDL). The SQL DDL allows specification of not only a set of relations, but also information about each relation, including: The schema for each relation. The types of values associated with each attribute. The integrity constraints. The set of indices to be maintained for each relation. The security and authorization information for each relation. - The physical storage structure of each relation on disk. We discuss here basic schema definition and basic types; we defer discussion of the other SQL DDL features to Chapter 4 and Chapter 5.</pre>
+                </div>
+
+                <div class="chunk-item">
+                    <strong>Rank 5</strong> | Chunk ID: 205 |
+                    FAISS: rank #5 (score: 0.0001) |
+                    BM25: rank #32 (score: 10.6859)
+                    <pre
+                        style="margin-top: 5px;">To understand the motivation for schemas and catalogs, consider how files are named in a file system. Early file systems were flat; that is, all files were stored in a single directory. Current file systems have a directory (or, synonymously, folder) structure, with files stored within subdirectories. T o name a file uniquely, we must specify the full path name of the file, for example, /users/avi/db-book/chapter3.tex. Like early file systems, early database systems also had a single name space for all relations. Users had to coordinate to make sure they did not try to use the same name for different relations. Contemporary database systems provide a three-level hierarchy for naming relations. The top level of the hierarchy consists of catalogs , each of which can contain schemas . SQL objects such as relations and views are contained within a schema. (Some database implementations use the term d atabase in place of the term c atalog.) In order to perform any actions on a database, a user (or a program) must first connect to the database. The user must provide the user name and usually, a password for verifying the identity of the user. Each user has a default catalog and schema, and the combination is unique to the user. When a user connects to a database system, the default catalog and schema are set up for the connection; this corresponds to the current directory being set to the user's home directory when the user logs into an operating system. To identify a relation uniquely, a three-part name may be used, for example, ## catalog5.univ\_schema.course We may omit the catalog component, in which case the catalog part of the name is considered to be the default catalog for the connection. Thus, if catalog5 is the default catalog, we can use univ\_schema.course to identify the same relation uniquely. If a user wishes to access a relation that exists in a different schema than the default schema for that user, the name of the schema must be specified</pre>
+                </div>
+
+            </div>
+        </details>
+
+        <h4>Expected Answer:</h4>
+        <pre>A database schema is the overall logical design and structure of the database, analogous to variable declarations in a program, defining the relations, their attributes, data types, and constraints including primary keys and foreign keys. The schema remains relatively stable over time, while a database instance represents the actual collection of data stored at a particular moment, with values that change as information is inserted, deleted, or modified.</pre>
+
+        <h4>Retrieved Answer:</h4>
+        <div class="answer-content">
+            <pre
+                style="white-space: pre-wrap;">A database schema refers to the logical design of the database. It defines the overall structure and organization of data within the database. <<<END_ANSWER>>></pre>
+        </div>
+    </div>
+
+    <div class="test-result passed">
+        <h3>Tell me about the authors of the book - <span class="score">PASSED</span></h3>
+        <p><strong>Final Score:</strong> <span class="score">0.698</span></p>
+        <p><strong>Threshold:</strong> 0.650</p>
+        <p><strong>Active Metrics:</strong> semantic, keyword, nli</p>
+
+        <div class="metric-grid">
+            <div class="metric-item"><strong>Nli Similarity:</strong> 0.993</div>
+            <div class="metric-item"><strong>Semantic Similarity:</strong> 0.527</div>
+            <div class="metric-item"><strong>Keyword Similarity:</strong> 0.000</div>
+            <div class="metric-item"><strong>Keywords Matched:</strong> 0/7</div>
+        </div>
+        <details>
+            <summary>📦 Retrieved Chunks (5 chunks)</summary>
+            <div style="margin-top: 10px;">
+
+                <div class="chunk-item">
+                    <strong>Rank 1</strong> | Chunk ID: 39 |
+                    FAISS: rank #1 (score: 0.0000) |
+                    BM25: rank #0 (score: 0.0000)
+                    <pre
+                        style="margin-top: 5px;">A primary goal of a database system is to retrieve information from and store new information in the database. People who work with a database can be categorized as database users or database administrators.</pre>
+                </div>
+
+                <div class="chunk-item">
+                    <strong>Rank 2</strong> | Chunk ID: 715 |
+                    FAISS: rank #2 (score: 0.0000) |
+                    BM25: rank #3 (score: 17.0721)
+                    <pre
+                        style="margin-top: 5px;">Retail shops are often interested in associations between different items that people buy. Examples of such associations are: Someone who buys bread is quite likely also to buy milk. A person who bought the book Database System Concepts is quite likely also to buy the book Operating System Concepts . Association information can be used in several ways. When a customer buys a particular book, an online shop may suggest associated books. A grocery shop may decide to place bread close to milk, since they are often bought together, to help shoppers finish their task faster. Or, the shop may place them at opposite ends of a row and place other associated items in between to tempt people to buy those items as well as the shoppers walk from one end of the row to the other. A shop that offers discounts on one associated item may not offer a discount on the other, since the customer will probably buy the other anyway. An example of an association rule is: In the context of grocery-store purchases, the rule says that customers who buy bread also tend to buy milk with a high probability. An association rule must have an associated population : The population consists of a set of instances . In the grocery-store example, the population may consist of all grocery-store purchases; each purchase is an instance. In the case of a bookstore, the population may consist of all people who made purchases, regardless of when they made a purchase. Each customer is an instance. In the bookstore example, the analyst has decided that when a purchase is made is not significant, whereas for the grocery-store example, the analyst may have decided to concentrate on single purchases, ignoring multiple visits by the same customer. Rules have an associated support, as well as an associated confidence. These are defined in the context of the population: - Support is a measure of what fraction of the population satisfies both the antecedent and the consequent of the rule. For instance, suppose only 0</pre>
+                </div>
+
+                <div class="chunk-item">
+                    <strong>Rank 3</strong> | Chunk ID: 210 |
+                    FAISS: rank #3 (score: 0.0000) |
+                    BM25: rank #0 (score: 0.0000)
+                    <pre
+                        style="margin-top: 5px;">We may assign a user several forms of authorizations on parts of the database. Authorizations on data include: - Authorization to read data. - Authorization to insert new data. - Authorization to update data. - Authorization to delete data. Each of these types of authorizations is called a privilege . We may authorize the user all, none, or a combination of these types of privileges on specified parts of a database, such as a relation or a view. When a user submits a query or an update, the SQL implementation first checks if the query or update is authorized, based on the authorizations that the user has been granted. If the query or update is not authorized, it is rejected. In addition to authorizations on data, users may also be granted authorizations on the database schema, allowing them, for example, to create, modify, or drop relations. A user who has some form of authorization may be allowed to pass on (grant) this authorization to other users, or to withdraw (revoke) an authorization that was granted earlier. In this section, we see how each of these authorizations can be specified in SQL. The ultimate form of authority is that given to the database administrator. The database administrator may authorize new users, restructure the database, and so on. This form of authorization is analogous to that of a superuser , administrator, or operator for an operating system.</pre>
+                </div>
+
+                <div class="chunk-item">
+                    <strong>Rank 4</strong> | Chunk ID: 314 |
+                    FAISS: rank #4 (score: 0.0000) |
+                    BM25: rank #0 (score: 0.0000)
+                    <pre
+                        style="margin-top: 5px;">Conceptually, individual entities are distinct; from a database perspective, however, the differences among them must be expressed in terms of their attributes. Therefore, the values of the attribute values of an entity must be such that they can uniquely identify the entity. In other words, no two entities in an entity set are allowed to have exactly the same value for all attributes. The notion of a key for a relation schema, as defined in Section 2.3, applies directly to entity sets. That is, a key for an entity is a set of attributes that suffice to distinguish entities from each other. The concepts of superkey, candidate key, and primary key are applicable to entity sets just as they are applicable to relation schemas. Keys also help to identify relationships uniquely, and thus distinguish relationships from each other. Next, we define the corresponding notions of keys for relationship sets.</pre>
+                </div>
+
+                <div class="chunk-item">
+                    <strong>Rank 5</strong> | Chunk ID: 369 |
+                    FAISS: rank #5 (score: 0.0000) |
+                    BM25: rank #0 (score: 0.0000)
+                    <pre
+                        style="margin-top: 5px;">All enterprises have rules on what kinds of functionality are to be supported by an enterprise application. These could include transactions that update the data, as well as queries to view data in a desired fashion. In addition to planning the functionality, designers have to plan the interfaces to be built to support the functionality. Not all users are authorized to view all data, or to perform all transactions. An authorization mechanism is very important for any enterprise application. Such authorization could be at the level of the database, using database authorization features. But it could also be at the level of higher-level functionality or interfaces, specifying who can use which functions/interfaces.</pre>
+                </div>
+
+            </div>
+        </details>
+
+        <h4>Expected Answer:</h4>
+        <pre>The authors of Database System Concepts Seventh Edition are Abraham Silberschatz, a Professor at Yale University and former Bell Labs vice president who is an ACM and IEEE fellow; Henry F. Korth, a Professor at Lehigh University who previously worked at Bell Labs and is also an ACM and IEEE fellow; and S. Sudarshan, the Subrao M. Nilekani Chair Professor at the Indian Institute of Technology Bombay who received his Ph.D. from the University of Wisconsin and is an ACM fellow, with research focusing on query processing and optimization.</pre>
+
+
+        <h4>Retrieved Answer:</h4>
+        <div class="answer-content">
+            <pre
+                style="white-space: pre-wrap;">The textbook "Database System Concepts" was authoredTo understand the purpose of database systems, consider part of a university organization that keeps data about all instructors, students, departments, and course offerings. One way to keep the information on a computer is by storing it in operating-system files. The earliest database systems arose in the 1960s in response to managing commercial data. These applications were relatively simple compared to modern databases. Modern databases include highly sophisticated worldwide enterprises with important common elements shared across old and new applications. The central aspect of these applications isn't performing calculations but rather dealing with data itself. Instructors can be found using SQL queries like `SELECT AVG(salary) FROM instructor WHERE dept_name = 'Comp. Sci.'`. This returns a single tuple containing the average salary for instructors in the Computer Science department. Database management involves keeping valuable large collections accessed concurrently by multiple users and applications. Simple universities use structured data such as courses, students, and registration details which are similar to those used since the early 1960s. For example, adding a fourth instructor whose salary matches $75,000 would lead to incorrect results without duplicates (e.g., $232,000/4 instead of $76,750). To avoid this, we should use,Retail shops often analyze associations between different items people buy, like bread and milk (someone who buys bread also likely buys milk). Association rules help online stores suggest related products when customers purchase one item. A database system's primary goal is to retrieve information from and store new data efficiently. Database users include those working with databases, while administrators manage them. The fail-stop model assumes no malicious behavior; Paxos and Raft use majority rule for agreement over 2PC requires unanimity. For Byzantine consensus, we need a form of majority rule overcoming both failures and potential malice. An example association rule: Customers buying bread tend to also buy milk with high probability. Rules have support (fraction satisfying antecedent & consequent) and confidence (likelihood of consequent given antecedent). Database systems can be categorized into user and administrator roles. Support measures population satisfaction, e.g., only 0% chance that all purchases satisfy this rule. Distributed consensus models address network faults by using majority or cryptographic signatures to guard against forged messages. Byzantine consensus algorithms began in early 1980s, but modern ones incorporate real-world assumptions and cryptography. Practical Byzantine Fault Tolerance tolerates up to nodes without protocol failure. Modern consensus protocols are referenced at the end primarilyOn networking and distributed systems, Ross is known for his work with TCP/IP (Transmission Control Protocol/Internet Protocol) and its implementation in various operating systems like Linux and Windows Server. He joined Rice University's faculty in 1985 after receiving his Ph.D. from MIT. His research interests span many areas within computer networks including security protocols, network performance analysis, and wireless communication technologies such as Wi-Fi and Bluetooth. Both authors contributed significantly to the field of database management systems through their textbooks and academic publications over several decades. Their expertise spans theoretical foundations, practical applications, and real-world implementations across different industries. The relational model was not used initially due to perceived performance disadvantages; however, System R at IBM Research developed techniques leading to SQL/DS, while Ingres at UC Berkeley led to commercial products. Oracle also came into play around that time, alongside other initial commercial relational databases like DB2, Oracle, Ingres, DEC Rdb, etc., which played major roles in advancing efficient declarative query processing. Directory access protocols simplify data access tailored to specific types of queries, evolving alongside database standards. The internet Domain Name Service (DNS) provides a standardized way to map domain names to IP addresses, crucial for internet functioning. LDAP simplifies storing organizational data efficiently. Chapter</pre>
+        </div>
+    </div>
+
+    <div class="test-result passed">
+        <h3>How does the recovery manager use ARIES to ensure atomicity - <span class="score">PASSED</span></h3>
+        <p><strong>Final Score:</strong> <span class="score">0.906</span></p>
+        <p><strong>Threshold:</strong> 0.750</p>
+        <p><strong>Active Metrics:</strong> semantic, keyword, nli</p>
+
+        <div class="metric-grid">
+            <div class="metric-item"><strong>Nli Similarity:</strong> 0.997</div>
+            <div class="metric-item"><strong>Semantic Similarity:</strong> 0.894</div>
+            <div class="metric-item"><strong>Keyword Similarity:</strong> 0.625</div>
+            <div class="metric-item"><strong>Keywords Matched:</strong> 5/8</div>
+        </div>
+        <details>
+            <summary>📦 Retrieved Chunks (5 chunks)</summary>
+            <div style="margin-top: 10px;">
+
+                <div class="chunk-item">
+                    <strong>Rank 1</strong> | Chunk ID: 1255 |
+                    FAISS: rank #1 (score: 0.0002) |
+                    BM25: rank #3 (score: 23.0024)
+                    <pre
+                        style="margin-top: 5px;">The state of the art in recovery methods is best illustrated by the ARIES recovery method. The recovery technique that we described in Section 19.4, along with the logical undo logging techniques described in Section 19.8, are modeled after ARIES, but they have been simplified significantly to bring out key concepts and make them easier to understand. In contrast, ARIES uses a number of techniques to reduce the time taken for recovery and to reduce the overhead of checkpointing. In particular, ARIES is able to avoid redoing many logged operations that have already been applied and to reduce the amount of information logged. The price paid is greater complexity; the benefits are worth the price. The four major differences between ARIES and the recovery algorithm presented earlier are that ARIES: 1. Uses a log sequence number ( LSN ) to identify log records and stores LSNs in database pages to identify which operations have been applied to a database page. 2. Supports physiological redo operations, which are physical in that the affected page is physically identified but can be logical within the page. For instance, the deletion of a record from a page may result in many other records in the page being shifted, if a slotted page structure (Section 13.2.2) is used. With physical redo logging, all bytes of the page affected by the shifting of records must be logged. With physiological logging, the deletion operation can be logged, resulting in a much smaller log record. Redo of - the deletion operation would delete the record and shift other records as required. 3. Uses a dirty page table to minimize unnecessary redos during recovery. As mentioned earlier, dirty pages are those that have been updated in memory, and the disk version is not up-to-date. 4. Uses a fuzzy-checkpointing scheme that records only information about dirty pages and associated information and does not even require writing of dirty pages to disk</pre>
+                </div>
+
+                <div class="chunk-item">
+                    <strong>Rank 2</strong> | Chunk ID: 1265 |
+                    FAISS: rank #2 (score: 0.0001) |
+                    BM25: rank #6 (score: 21.2783)
+                    <pre
+                        style="margin-top: 5px;">Among other key features that ARIES provides are: - Nested top actions : ARIES allows the logging of operations that should not be undone even if a transaction gets rolled back; for example, if a transaction allocates a page to a relation, even if the - transaction is rolled back, the page allocation should not be undone since other transactions may have stored records in the page. Such operations that should not be undone are called nested top actions. Such operations can be modeled as operations whose undo action does nothing. In ARIES, such operations are implemented by creating a dummy CLR whose UndoNextLSN is set such that transaction rollback skips the log records generated by the operation. - Recovery independence : Some pages can be recovered independently from others so that they can be used even while other pages are being recovered. If some pages of a disk fail, they can be recovered without stopping transaction processing on other pages. - Savepoints : T ransactions can record savepoints and can be rolled back partially up to a savepoint. This can be quite useful for deadlock handling, since transactions can be rolled back up to a point that permits release of required locks and then restarted from that point. Programmers can also use savepoints to undo a transaction partially, and then continue execution; this approach can be useful to handle certain kinds of errors detected during the transaction execution. - Fine-grained locking : The ARIES recovery algorithm can be used with index concurrency-control algorithms that permit tuple-level locking on indices, instead of page-level locking, which improves concurrency significantly. - Recovery optimizations : The DirtyPageTable can be used to prefetch pages during redo, instead of fetching a page only when the system finds a log record to be applied to the page. Out-of-order redo is also possible: Redo can be postponed on a page being fetched from - disk and performed when the page is fetched</pre>
+                </div>
+
+                <div class="chunk-item">
+                    <strong>Rank 3</strong> | Chunk ID: 1260 |
+                    FAISS: rank #3 (score: 0.0001) |
+                    BM25: rank #0 (score: 0.0000)
+                    <pre
+                        style="margin-top: 5px;">ARIES recovers from a system crash in three passes. - Analysis pass : This pass determines which transactions to undo, which pages were dirty at the time of the crash, and the LSN from which the redo pass should start. - Redo pass : This pass starts from a position determined during analysis and performs a redo, repeating history, to bring the database to a state it was in before the crash. - Undo pass : This pass rolls back all transactions that were incomplete at the time of crash.</pre>
+                </div>
+
+                <div class="chunk-item">
+                    <strong>Rank 4</strong> | Chunk ID: 1257 |
+                    FAISS: rank #4 (score: 0.0001) |
+                    BM25: rank #10 (score: 19.1936)
+                    <pre
+                        style="margin-top: 5px;">Each log record in ARIES has a log sequence number (LSN) that uniquely identifies the record. The number is conceptually just a logical identifier whose value is greater for log records that occur later in the log. In practice, the LSN is generated in such a way that it can also be used to locate the log record on disk. Typically, ARIES splits a log into multiple log files, each of which has a file number. When a log file grows to some limit, ARIES appends further log records to a new log file; the new log file has a file number that is higher by 1 than the previous log file. The LSN then consists of a file number and an offset within the file. Each page also maintains an identifier called the PageLSN . Whenever an update operation (whether physical or physiological) occurs on a page, the operation stores the LSN of its log record in the PageLSN field of the page. During the redo phase of recovery, any log records with LSN less than or equal to the PageLSN of a page should not be executed on the page, since their actions are already reflected on the page. In combination with a scheme for recording PageLSNs as part of checkpointing, which we present later, ARIES can avoid even reading many pages for which logged operations are already reflected on disk. Thereby, recovery time is reduced significantly. The PageLSN is essential for ensuring idempotence in the presence of physiological redo operations, since reapplying a physiological redo that has already been applied to a page could cause incorrect changes to a page. Pages should not be flushed to disk while an update is in progress, since physiological operations cannot be redone on the partially updated state of the page on disk. Therefore, ARIES uses latches on buffer pages to prevent them from being written to disk while they are being updated. It releases the buffer page latch only after the update is completed and the log record for the update has been written to the log</pre>
+                </div>
+
+                <div class="chunk-item">
+                    <strong>Rank 5</strong> | Chunk ID: 1256 |
+                    FAISS: rank #5 (score: 0.0001) |
+                    BM25: rank #21 (score: 16.6882)
+                    <pre
+                        style="margin-top: 5px;">. 4. Uses a fuzzy-checkpointing scheme that records only information about dirty pages and associated information and does not even require writing of dirty pages to disk. It flushes dirty pages in the background, continuously, instead of writing them during checkpoints. In the rest of this section, we provide an overview of ARIES. The bibliographical notes list some references that provide a complete description of ARIES.</pre>
+                </div>
+
+            </div>
+        </details>
+
+        <h4>Expected Answer:</h4>
+        <pre>The ARIES recovery algorithm ensures atomicity by maintaining a write-ahead log where all updates are recorded before being applied to the database, with each log record containing transaction ID, data item, old value, and new value. During normal operation, log records are written to stable storage before the transaction commits; if a transaction aborts or the system crashes, the recovery manager uses the log to undo uncommitted transactions by applying the old values in reverse order, ensuring that partial effects of incomplete transactions are completely rolled back and the all-or-nothing property of atomicity is preserved.</pre>
+
+        <h4>Retrieved Answer:</h4>
+        <div class="answer-content">
+            <pre
+                style="white-space: pre-wrap;">The recovery manager uses ARIES to ensure atomicity by using its nested top actions feature. When a transaction gets rolled back, ARIES ensures that any operations within the transaction are undone as well, including those that were allocated resources or modified data structures. To achieve atomicity:
+
+1. **Nested Top Actions**: This allows transactions to perform complex sequences of operations without worrying about rollback issues. If a transaction rolls back, all operations within that transaction will be undone, ensuring consistency across the database. 2. **Redo Log Management**: ARIES maintains a redo log for each transaction. During a roll-back operation, the redo log is used to undo changes made by the transaction before it was committed. By keeping track of these logs, ARIES can accurately reverse the effects of a failed transaction. 3. **Fuzzy-Checkpointing Scheme**: Instead of relying on traditional checkpointing methods (which require flushing dirty pages to disk), ARIES employs a fuzzy-checkpointing scheme. It records only information about dirty pages and associated metadata, avoiding unnecessary writes during checkpoints. Dirty pages are flushed in the background continuously instead of at regular intervals. By leveraging these features, ARIES provides an efficient mechanism for recovering from system crashes while maintaining the integrity and consistency of the database.</pre>
+        </div>
+    </div>
+
+    <div class="test-result passed">
+        <h3>Contrast the goals of Online Transaction Processing and data analytics - <span class="score">PASSED</span>
+        </h3>
+        <p><strong>Final Score:</strong> <span class="score">0.831</span></p>
+        <p><strong>Threshold:</strong> 0.730</p>
+        <p><strong>Active Metrics:</strong> semantic, keyword, nli</p>
+
+        <div class="metric-grid">
+            <div class="metric-item"><strong>Nli Similarity:</strong> 0.965</div>
+            <div class="metric-item"><strong>Semantic Similarity:</strong> 0.794</div>
+            <div class="metric-item"><strong>Keyword Similarity:</strong> 0.444</div>
+            <div class="metric-item"><strong>Keywords Matched:</strong> 4/9</div>
+        </div>
+        <details>
+            <summary>📦 Retrieved Chunks (5 chunks)</summary>
+            <div style="margin-top: 10px;">
+
+                <div class="chunk-item">
+                    <strong>Rank 1</strong> | Chunk ID: 1669 |
+                    FAISS: rank #1 (score: 0.0001) |
+                    BM25: rank #4 (score: 20.3550)
+                    <pre
+                        style="margin-top: 5px;">Online transaction processing ( OLTP ) and decision support , including online analytical processing ( OLAP ), are two broad classes of applications handled by database systems. These two classes of tasks have different requirements. High concurrency and clever techniques to speed up commit processing are required for supporting a high rate of update transactions. On the other hand, good query-evaluation algorithms and query optimization are required for decision support. The architecture of some database systems has been tuned to transaction processing; that of others, such as the T eradata series of parallel database systems, has been tuned to decision support. Other vendors try to strike a balance between the two tasks. Applications usually have a mixture of transactionprocessing and decision-support requirements. Hence, which database system is best for an application depends on what mix of the two requirements the application has. Suppose that we have throughput numbers for the two classes of applications separately, and the application at hand has a mix of transactions in the two classes. We must be careful even about taking the harmonic mean of the throughput numbers because of interference between the transactions. For example, a long-running decision-support transaction may acquire a number of locks, which may prevent all progress of update transactions. The harmonic mean of throughputs should be used only if the transactions do not interfere with one another.</pre>
+                </div>
+
+                <div class="chunk-item">
+                    <strong>Rank 2</strong> | Chunk ID: 4 |
+                    FAISS: rank #2 (score: 0.0001) |
+                    BM25: rank #1 (score: 23.9518)
+                    <pre
+                        style="margin-top: 5px;">. The user, or customer, can focus on the product or service without being aware of the details of the large database that makes the interaction possible. For instance, when you read a social-media post, or access an online bookstore and browse a book or music collection, you are accessing data stored in a database. When you enter an order online, your order is stored in a database. When you access a bank web site and retrieve your bank balance and transaction information, the information is retrieved from the bank's database system. When you access a web site, information about you may be retrieved from a database to select which advertisements you should see. Almost every interaction with a smartphone results in some sort of database access. Furthermore, data about your web accesses may be stored in a database. Thus, although user interfaces hide details of access to a database, and most people are not even aware they are dealing with a database, accessing databases forms an essential part of almost everyone's life today. Broadly speaking, there are two modes in which databases are used. - The first mode is to support online transaction processing , where a large number of users use the database, with each user retrieving relatively small amounts of data, and performing small updates. This is the primary mode of use for the vast majority of users of database applications such as those that we outlined earlier. - The second mode is to support data analytics , that is, the processing of data to draw conclusions, and infer rules or decision procedures, which are then used to drive business decisions. For example, banks need to decide whether to give a loan to a loan applicant, online advertisers need to decide which advertisement to show to a particular user. These tasks are addressed in two steps. First, data-analysis techniques attempt to automatically discover rules and patterns from data and create predictive models</pre>
+                </div>
+
+                <div class="chunk-item">
+                    <strong>Rank 3</strong> | Chunk ID: 680 |
+                    FAISS: rank #3 (score: 0.0001) |
+                    BM25: rank #15 (score: 17.1233)
+                    <pre
+                        style="margin-top: 5px;">The requirements of a database system designed for transaction processing are somewhat different from one designed to support a data-warehouse system. One key difference is that a transaction-processing database needs to support many small queries, which may involve updates in addition to reads. In contrast, data warehouses typically need to process far fewer queries, but each query accesses a much larger amount of data. Most importantly, while new records are inserted into relations in a data warehouse, and old records may be deleted once they are no longer needed, to make space for new data, records are typically never updated once they are added to a relation. Thus, data warehouses do not need to pay any overhead for concurrency control. (As described in Chapter 17 and Chapter 18, if concurrent transactions read and write the same data, the resultant data may become inconsistent. Concurrency control restricts concurrent accesses in a way that ensures there is no erroneous update to the database.) The overhead of concurrency control can be significant in terms of not just time taken for query processing, but also in terms of storage, since databases often store multiple versions of data to avoid conflicts between small update transactions and long read-only transactions. None of these overheads are needed in a data warehouse. Databases traditionally store all attributes of a tuple together, and tuples are stored sequentially in a file. Such a storage layout is referred to as row-oriented storage. In contrast, in column-oriented storage , each attribute of a relation is stored in a separate file, with values from successive tuples stored at successive positions in the file. Assuming fixed-size data types, the value of attribute A of the i th tuple of a relation can be found by accessing the file corresponding to attribute A and reading the value at offset ( i 1) times the size (in bytes) of values in attribute A</pre>
+                </div>
+
+                <div class="chunk-item">
+                    <strong>Rank 4</strong> | Chunk ID: 1186 |
+                    FAISS: rank #4 (score: 0.0001) |
+                    BM25: rank #45 (score: 14.6253)
+                    <pre
+                        style="margin-top: 5px;">The transaction concept developed initially in the context of data-processing applications, in which most transactions are noninteractive and of short duration. Serious problems arise when this concept is applied to database systems that involve human interaction. Such transactions have these key properties: - Long duration . Once a human interacts with an active transaction, that transaction becomes a long-duration transaction from the perspective of the computer, since human response time is slow relative to computer speed. Furthermore, in design applications, the human activity may involve hours, days, or an even longer period. Thus, transactions may be of long duration in human terms, as well as in machine terms. - Exposure of uncommitted data . Data generated and displayed to a user by a long-duration transaction are uncommitted, since the transaction may abort. Thus, users-and, as a result, other transactions-may be forced to read uncommitted data. If several users are cooperating on a project, user transactions may need to exchange data prior to transaction commit. - Subtasks . An interactive transaction may consist of a set of subtasks initiated by the user. The user may wish to abort a subtask without necessarily causing the entire transaction to abort. - Recoverability . It is unacceptable to abort a longduration interactive transaction because of a system crash. The active transaction must be recovered to a state that existed shortly before the crash so that relatively little human work is lost. - Performance . Good performance in an interactive transaction system is defined as fast response time. This definition is in contrast to that in a noninteractive system, in which high throughput (number of transactions per second) is the goal. Systems with high throughput make efficient use of system resources. However, in the case of interactive transactions, the most costly resource is the user</pre>
+                </div>
+
+                <div class="chunk-item">
+                    <strong>Rank 5</strong> | Chunk ID: 1289 |
+                    FAISS: rank #5 (score: 0.0001) |
+                    BM25: rank #0 (score: 0.0000)
+                    <pre
+                        style="margin-top: 5px;">The transaction requirements of organizations have grown with the increasing use of computers. Moreover, the growth of the World Wide Web has created many sites with millions of viewers, and the increasing amounts of data collected from these viewers has produced extremely large databases at many companies. The driving force behind parallel database systems is the demands of applications that have to query extremely large databases (of the order of petabytes-that is, 1000 terabytes, or equivalently, 10 15 bytes) or that have to process an extremely large number of transactions per second (of the order of thousands of transactions per second). Centralized and client - server database systems are not powerful enough to handle such applications. Web-scale applications today often require hundreds to thousands of nodes (and in some cases, tens of thousands of nodes) to handle the vast number of users on the web. Organizations are using these increasingly large volumes of data-such as data about what items people buy, what web links users click on, and when people make telephone calls-to plan their activities and pricing. Queries used for such purposes are called decision-support queries , and the data requirements for such queries may run into terabytes. Single-node systems are not capable of handling such large volumes of data at the required rates. The set-oriented nature of database queries naturally lends itself to parallelization. A number of commercial and research systems have demonstrated the power and scalability of parallel query processing. As the cost of computing systems has reduced significantly over the years, parallel machines have become common and relatively inexpensive. Individual computers have themselves become parallel machines using multicore architectures. Parallel databases are thus quite affordable even for small organizations</pre>
+                </div>
+
+            </div>
+        </details>
+
+        <h4>Expected Answer:</h4>
+        <pre>Online Transaction Processing (OLTP) supports a large number of concurrent users performing small, fast transactions that retrieve and update relatively small amounts of data with requirements for high throughput, low latency, and immediate consistency, typically using normalized schemas optimized for transactional integrity. Data analytics, in contrast, processes large volumes of historical data to draw conclusions and infer patterns for business intelligence and decision support, involving complex queries that scan and aggregate data across many records, often using denormalized schemas like star schemas in data warehouses optimized for read-heavy analytical workloads rather than transactional updates.</pre>
+
+        <h4>Retrieved Answer:</h4>
+        <div class="answer-content">
+            <pre
+                style="white-space: pre-wrap;">Online transaction processing (OLTP) aims to provide real-time or near-real-time access to data by users who interact with it frequently. Its primary goal is to ensure high performance and low latency while handling multiple concurrent transactions efficiently. On the other hand, online analytical processing (OLAP), also known as data analysis or business intelligence, focuses on analyzing historical data for decision-making purposes. OLAP allows users to explore different dimensions of data, perform complex analyses, and generate reports without requiring immediate response times. It emphasizes scalability, flexibility, and ease-of-use over speed and efficiency in executing individual queries. In summary:
+- **OLTP** prioritizes fast execution of short-duration, interactive tasks. - **OLAP** stresses efficient exploration of large datasets for deeper insights into past events and trends.</pre>
+        </div>
+    </div>
+
+    <div class="test-result passed">
+        <h3>Show me what happens during a lossy decomposition - <span class="score">PASSED</span></h3>
+        <p><strong>Final Score:</strong> <span class="score">0.890</span></p>
+        <p><strong>Threshold:</strong> 0.700</p>
+        <p><strong>Active Metrics:</strong> semantic, keyword, nli</p>
+
+        <div class="metric-grid">
+            <div class="metric-item"><strong>Nli Similarity:</strong> 0.943</div>
+            <div class="metric-item"><strong>Semantic Similarity:</strong> 0.890</div>
+            <div class="metric-item"><strong>Keyword Similarity:</strong> 0.714</div>
+            <div class="metric-item"><strong>Keywords Matched:</strong> 5/7</div>
+        </div>
+        <details>
+            <summary>📦 Retrieved Chunks (5 chunks)</summary>
+            <div style="margin-top: 10px;">
+
+                <div class="chunk-item">
+                    <strong>Rank 1</strong> | Chunk ID: 378 |
+                    FAISS: rank #1 (score: 0.0001) |
+                    BM25: rank #1 (score: 19.5307)
+                    <pre
+                        style="margin-top: 5px;">Let R be a relation schema and let R 1 and R 2 form a decomposition of R -that is, viewing R , R 1 , and R 2 as sets of attributes, R = R 1 ∪ R 2 . We say that the decomposition is a lossless decomposition if there is no loss of information by replacing R with two relation schemas R 1 and R 2 . Loss of information occurs if it is possible to have an instance of a relation r ( R ) that includes information that cannot be represented if instead of the instance of r ( R ) we must use instances of r 1 (R 1 ) and r 2 ( R 2 ). More precisely, we say the decomposition is lossless if, for all legal (we shall formally define 'legal' in Section 7.2.2.) database instances, relation r contains the same set of tuples as the result of the following SQL query: 1 ## select * from (select R 1 from r) natural join (select R 2 from r) This is stated more succinctly in the relational algebra as: In other words, if we project r onto R 1 and R 2 , and compute the natural join of the projection results, we get back exactly r . Conversely, a decomposition is lossy if when we compute the natural join of the projection results, we get a proper superset of the original relation. This is stated more succinctly in the relational algebra as: Let us return to our decomposition of the employee schema into employee1 and employee2 (Figure 7.3) and a case where two or more employees have the same name. The result of employee1 natural join employee2 is a superset of the original relation employee, but the decomposition is lossy since the join result has lost information about which employee identifiers correspond to which addresses and salaries. It may seem counterintuitive that we have more tuples but less information, but that is indeed the case. The decomposed version is unable to represent the absence of a connection between a name and an address or salary, and absence of a connection is indeed information.</pre>
+                </div>
+
+                <div class="chunk-item">
+                    <strong>Rank 2</strong> | Chunk ID: 386 |
+                    FAISS: rank #2 (score: 0.0001) |
+                    BM25: rank #4 (score: 14.0889)
+                    <pre
+                        style="margin-top: 5px;">We can use functional dependencies to show when certain decompositions are lossless. Let R , R 1 , R 2 , and F be as above. R 1 and R 2 form a lossless decomposition of R if at least one of the following functional dependencies is in F + : - R 1 ∩ R 2 → R 1 - R 1 ∩ R 2 → R 2 In other words, if R 1 ∩ R 2 forms a superkey for either R 1 or R 2 , the decomposition of R is a lossless decomposition. We can use attribute closure to test efficiently for superkeys, as we have seen earlier. To illustrate this, consider the schema in\_dep ( ID , name, salary, dept\_name, building, budget ) that we decomposed in Section 7.1 into the instructor and department schemas: instructor ( ID , name, dept\_name, salary ) department ( dept\_name, building, budget ) Consider the intersection of these two schemas, which is dept\_name. We see that because dept\_name → dept\_name, building, budget, the lossless-decomposition rule is satisfied. For the general case of decomposition of a schema into multiple schemas at once, the test for lossless decomposition is more complicated. See the Further Reading section at the end of this chapter for references on this topic. While the test for binary decomposition is clearly a sufficient condition for lossless decomposition, it is a necessary condition only if all constraints are functional dependencies. We shall see other types of constraints later (in particular, a type of constraint called multivalued dependencies discussed in Section 7.6.1) that can ensure that a decomposition is lossless even if no functional dependencies are present. Suppose we decompose a relation schema r(R ) into r 1 ( R 1 ) and r 2 ( R 2 ), where R 1 ∩ R 2 → R 1 . 5 Then the following SQL constraints must be imposed on the decomposed schema to ensure their contents are consistent with the original schema. R 1 ∩ R 2 is the primary key of r 1 . This constraint enforces the functional dependency. R 1 ∩ R 2 is a foreign key from r 2 referencing r 1</pre>
+                </div>
+
+                <div class="chunk-item">
+                    <strong>Rank 3</strong> | Chunk ID: 416 |
+                    FAISS: rank #3 (score: 0.0001) |
+                    BM25: rank #20 (score: 10.7870)
+                    <pre
+                        style="margin-top: 5px;">The definition of BCNF can be used directly to test if a relation is in BCNF . However, computation of F + can be a tedious task. We first describe simplified tests for verifying if a relation is in BCNF . If a relation is not in BCNF, it can be decomposed to create relations that are in BCNF. Later in this section, we describe an algorithm to create a lossless decomposition of a relation, such that the decomposition is in BCNF.</pre>
+                </div>
+
+                <div class="chunk-item">
+                    <strong>Rank 4</strong> | Chunk ID: 421 |
+                    FAISS: rank #4 (score: 0.0001) |
+                    BM25: rank #0 (score: 0.0000)
+                    <pre
+                        style="margin-top: 5px;">. These correspond to the schemas that we have used in this and previous chapters. You can verify that the decomposition is lossless and dependency preserving.</pre>
+                </div>
+
+                <div class="chunk-item">
+                    <strong>Rank 5</strong> | Chunk ID: 412 |
+                    FAISS: rank #5 (score: 0.0001) |
+                    BM25: rank #24 (score: 10.2649)
+                    <pre
+                        style="margin-top: 5px;">Using the theory of functional dependencies, there is a way to describe dependency preservation that is simpler than the ad hoc approach we used in Section 7.3.1.2. Let F be a set of functional dependencies on a schema R, and let R 1 , R 2 ,..., R n be a decomposition of R . The restriction of F to R t is the set F i of all functional dependencies in F + that include only attributes of R i . Since all functional dependencies in a restriction involve attributes of only one relation schema, it is possible to test such a dependency for satisfaction by checking only one relation. Note that the definition of restriction uses all dependencies in F + , not just those in F . For instance, suppose F = {A → B, B → C }, and we have a decomposition into AC and AB . The restriction of F to AC includes A → C , since A → C is in F + , even though it is not in F . The set of restrictions F 1 , F 2 ,..., F n is the set of dependencies that can be checked efficiently. We now must ask whether testing only the restrictions is sufficient. Let F' = F 1 ∪ F 2 ∪ … ∪ F n . F ' is a set of functional dependencies on schema R , but, in general, F' ≠ F . However, even if F' ≠ F , it may be that F' + = F + . If the latter is true, then every dependency in F is logically implied by F', and, if we verify that F' is satisfied, we have verified that F is satisfied. We say that a decomposition having the property F' + = F + is a dependency-preserving decomposition . Figure 7.10 shows an algorithm for testing dependency preservation. The input is a set D = { R 1 , R 2 ,..., Rn } of decomposed relation schemas, and a set F of functional dependencies. This algorithm is expensive since it requires computation of F + . Instead of applying the algorithm of Figure 7.10, we consider two alternatives</pre>
+                </div>
+
+            </div>
+        </details>
+
+        <h4>Expected Answer:</h4>
+        <pre>A lossy decomposition occurs when a relation R is decomposed into smaller relations R1 and R2 such that joining them back together produces spurious tuples not present in the original relation, resulting in loss of information about which attribute combinations actually existed. This happens when the intersection of R1 and R2 does not form a superkey for either relation, violating the lossless-join condition; the natural join of the decomposed relations generates extra tuples from invalid combinations, making it impossible to reconstruct the original data accurately, which is why database design insists that all decompositions must be lossless.</pre>
+
+        <h4>Retrieved Answer:</h4>
+        <div class="answer-content">
+            <pre
+                style="white-space: pre-wrap;">A lossy decomposition occurs when some information from the original relation (R) is lost or discarded by replacing it with two smaller relation schemas (R1 and R2). This typically happens because one of the new relation schemas has fewer attributes than the original relation. In other words:
+- **Loss** refers to the fact that data is not fully preserved. - **Decomposition** involves breaking down the larger relation into multiple smaller relations based on certain conditions (e.g., functional dependencies). The key points about lossy decompositions are:
+
+1. **Information Loss**: Some relationships between tuples may become undefined after the transformation due to missing necessary attributes. 2. **Dependency Preservation Issues**: If any functional dependencies hold true for either R1 or R2 but not both, then dependency preservation fails at this point.Inaccurate results can occur if operations performed on subrelations do not reflect the original integrity constraints present in the full relation schema. **Explanation:**
+- **Lossless Decomposition:** A decomposition into two relation schemas R1 and R2 is lossless if at least one of the following conditions holds:
+  - \(R_1 \cap R_2\) → \(R_1\)
+  - \(R_1 \cap R_2\) → \(R_2\)
+
+- **Functional Dependencies:** For a decomposition to be lossless, there must exist a superkey for either R1 or R2 among the attributes involved in the intersection (\(R_1 \cap R_2\)). - **Example Scenario:** Consider decomposing the employee schema into instructor (ID, name, dept_name, salary) and department (dept_name, building, budget). The intersection of these schemas is "dept\_name". Since \(dept\_name \rightarrow dept\_name, building, budget\), this condition is satisfied, ensuring the decomposition remains consistent with the original schema's integrity constraints. - **Integrity Constraints:** Integrity constraints ensure that changes by authorized users do not result in data inconsistency. This contrasts with security constraints which guard against unauthorized access. - 4. **Ad Hoc Testing**: For complex decompositions involving many tables, testing whether they maintain all functional dependencies becomes impractical without specialized tools like F+ computation. 5. **Algorithmic Approach**: There exist algorithms designed specifically to create a lossless decomposition where each component table satisfies BCNFLet \( R \) be a relation schema consisting of attributes \( R_1 \), \( R_2 \), ..., \( R_n \). A **lossless decomposition** occurs if replacing \( R \) with two relation schemas \( R_1 \) and \( R_2 \) does not result in any loss of information. - If there exists an instance \( r(R) \) where some attribute combination forms a superkey for either \( R_1 \) or \( R_2 \), then the decomposition is considered lossless. - The SQL query ensures that when projecting \( r \) onto \( R_1 \) and \( R_2 \), and performing natural joins on these projections, the resulting set contains exactly the same tuples as \( r \). - Conversely, a decomposition is **lossy** if it results in a superset of original relations after performing natural join operations between their respective projections. To determine whether a given decomposition is lossless:
+1. Check if at least one functional dependency involving intersection of subsets (e.g., \( R_1 \cap R_2 \rightarrow R_1 \)) holds true within the provided F+ dependencies. 2. Ensure that each subset has its own primary key to maintain consistency across ensuring higher levels of normalization and thus better data integrity. 6. **Simplified Tests**: While BCNF tests provide a theoretical basis, there are simplified methods available to quickly check if a given set of functional dependencies leads to a decomposition with desirable properties such as maintaining primary keys across components. In summary, while lossy decompositions allow us to break down large relational schemas more easily into manageable pieces, doing so often comes at the cost of losing some information and complicating further analysis or querying tasks.</pre>
+        </div>
+    </div>
+</body>
+
+</html>
